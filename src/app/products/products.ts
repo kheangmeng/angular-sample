@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { RouterLink } from '@angular/router'
 import { ADMIN_KEY } from '../app.routes';
 import { CounterSignalService } from '../counter-signal.service'
 import { CounterBaseService } from '../counter-base.service'
@@ -6,7 +7,7 @@ import { InputSearch } from '../input-search/input-search';
 
 @Component({
   selector: 'app-products',
-  imports: [InputSearch],
+  imports: [InputSearch, RouterLink],
   exportAs: 'products',
   templateUrl: './products.html',
   styleUrl: './products.css'
