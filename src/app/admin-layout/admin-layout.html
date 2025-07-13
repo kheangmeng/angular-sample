@@ -1,4 +1,36 @@
 <div>
   admin-layout works!
+  <ul style="list-style-type: none; display: flex; gap: 10px;">
+    <li>
+      <a routerLink="/about" routerLinkActive="active">About</a>
+    </li>
+    <li>
+      <a routerLink="/admin" routerLinkActive="active">Dashboard</a>
+    </li>
+    <li>
+      <a routerLink="/admin/products" routerLinkActive="active">Products</a>
+    </li>
+    <!-- <li>
+      <a routerLink="/admin/orders" routerLinkActive="active">Orders</a>
+    </li>
+    <li>
+      <a routerLink="/admin/users" routerLinkActive="active">Users</a>
+    </li>
+    <li>
+      <a routerLink="/admin/settings" routerLinkActive="active">Settings</a>
+    </li>
+    <li>
+      <a routerLink="/admin/logout" routerLinkActive="active">Logout</a>
+    </li> -->
+    <li>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+    </li>
+    <!-- <li>
+      <a routerLink="/admin/register" routerLinkActive="active">Register</a>
+    </li>
+    <li>
+      <a routerLink="/admin/profile" routerLinkActive="active">Profile</a>
+    </li> -->
+  </ul>
   <router-outlet />
 </div>

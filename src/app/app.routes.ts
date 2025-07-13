@@ -22,5 +22,25 @@ export const routes: Routes = [
         loadComponent: () => import('./products/products').then(m => m.Products)
       }
     ]
+  },
+  {
+    path: '',
+    loadComponent: () => import('./home-page/home-page').then(m => m.HomePage)
+  },
+  {
+    path: 'about',
+    loadComponent: () => import('./about/about').then(m => m.About)
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login').then(m => m.Login)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile').then(m => m.Profile)
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./page-not-found/page-not-found').then(m => m.PageNotFound)
   }
 ];
