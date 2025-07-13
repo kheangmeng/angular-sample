@@ -1,0 +1,15 @@
+<div>
+  products works!
+  <div class="card">
+    <h2>Signal</h2>
+    <span>Total: {{ counter.getCount() }}</span>
+    <button (click)="counter.increment()">+</button>
+    <button (click)="counter.decrement()">-</button>
+  </div>
+  <div class="card">
+    <h2>Base</h2>
+    <span>Total: {{ counterBase.getCount() }}</span>
+    <button (click)="counterBase.increment()">+</button>
+    <button (click)="counterBase.decrement()">-</button>
+  </div>
+</div>
