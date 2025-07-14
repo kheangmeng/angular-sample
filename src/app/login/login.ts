@@ -5,16 +5,26 @@ import { FormsModule } from '@angular/forms';
 import { LoginModel } from './model';
 import { ForbiddenValidatorDirective } from '../shared/template-validator';
 import { JsonPipe } from '@angular/common';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, ForbiddenValidatorDirective, JsonPipe],
+  imports: [
+    FormsModule,
+    ForbiddenValidatorDirective,
+    JsonPipe,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+  ],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
   private router = inject(Router)
-  public login = new LoginModel('', '')
+  public login = new LoginModel('jonnhdoe@gmail.com', '123456789')
 
   constructor(public auth: AuthService) {}
 
