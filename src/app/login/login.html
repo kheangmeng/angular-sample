@@ -1,10 +1,13 @@
 <div>
   login works!
+  {{ login | json }}
   <form (ngSubmit)="handleSubmit()" class="loginForm" #loginForm="ngForm">
     <input
       [(ngModel)]="login.email"
       name="email" type="email" placeholder="Email"
       required
+      email
+      appForbiddenName="test"
       class="ng-valid ng-invalid"
       #email="ngModel"
     />
@@ -17,6 +20,16 @@
         @if (email.hasError('required')) {
           <div>
             Email is required.
+          </div>
+        }
+        @if (email.hasError('email')) {
+          <div>
+            Email is invalid.
+          </div>
+        }
+        @if (email.hasError('forbiddenName')) {
+          <div>
+            Do not include 'test' in email.
           </div>
         }
       </div>
