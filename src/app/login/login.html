@@ -1,4 +1,52 @@
 <div>
   login works!
-  <button (click)="handleSubmit()">submit</button>
+  <form (ngSubmit)="handleSubmit()" class="loginForm" #loginForm="ngForm">
+    <input
+      [(ngModel)]="login.email"
+      name="email" type="email" placeholder="Email"
+      required
+      class="ng-valid ng-invalid"
+      #email="ngModel"
+    />
+    <!-- <div [hidden]="email.valid || email.pristine"
+          class="alert alert-danger">
+      Email is required.
+    </div> -->
+    @if (email.invalid && (email.dirty || email.touched)) {
+      <div class="alert error-msg">
+        @if (email.hasError('required')) {
+          <div>
+            Email is required.
+          </div>
+        }
+      </div>
+    }
+    <input
+      [(ngModel)]="login.password"
+      name="password" type="password" placeholder="Password"
+      required minlength="8"
+      class="ng-valid ng-invalid"
+      #password="ngModel"
+    />
+    <!-- <div [hidden]="password.valid || password.pristine"
+          class="alert alert-danger">
+      Password is required
+    </div> -->
+    @if (password.invalid && (password.dirty || password.touched)) {
+      <div class="alert error-msg">
+        @if (password.hasError('required')) {
+          <div>
+            Password is required.
+          </div>
+        }
+
+        @if (password.hasError('minlength')) {
+          <div>
+            Password must be at least 8 characters long.
+          </div>
+        }
+      </div>
+    }
+    <button type="submit" [disabled]="!loginForm.form.valid">submit</button>
+  </form>
 </div>
