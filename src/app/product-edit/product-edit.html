@@ -1,1 +1,64 @@
 <p>product-edit works!</p>
+
+<div>
+  <h2>Product Form: {{ productForm.status }}</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="productForm">
+    <label for="name">Name</label>
+    <input type="text" id="name" formControlName="name" placeholder="Name" />
+    @if (name && name.invalid && (name.dirty || name.touched)) {
+      <div class="error-msg">
+        @if (name.hasError('required')) {
+          <div>
+            Name is required.
+          </div>
+        }
+        @if (name.hasError('forbiddenName')) {
+          <div>
+            Do not include 'test' in email.
+          </div>
+        }
+      </div>
+    }
+    <label for="category">Category</label>
+    <input type="text" id="category" formControlName="category" placeholder="Category" />
+    @if (category && category.invalid && (category.dirty || category.touched)) {
+      <div class="error-msg">
+        @if (category.hasError('required')) {
+          <div>
+            category is required.
+          </div>
+        }
+        <!-- @if (category.hasError('unambiguousCategory')) {
+          <div>
+            Name cannot match category.
+          </div>
+        } -->
+      </div>
+    }
+    <label for="qty">Quantity</label>
+    <input type="number" id="qty" formControlName="qty" placeholder="Quantity" />
+    <label for="description">Description</label>
+    <textarea rows="5" id="description" formControlName="description" placeholder="Description"></textarea>
+    <div style="font-weight: bolder; margin-top: 20px;">Product Detail</div>
+    <div formGroupName="detail" class="productForm">
+      <label for="price">Price</label>
+      <input type="number" id="price" formControlName="price" placeholder="Price" />
+      <label for="color">Color</label>
+      <input type="text" id="color" formControlName="color" placeholder="Color" />
+      <label for="size">Size</label>
+      <input type="text" id="size" formControlName="size" placeholder="Size" />
+    </div>
+    <div formArrayName="tags">
+      <button type="button" (click)="addTag()">Add Tag</button>
+      @for (tag of tags.controls; track $index; let i = $index) {
+        <div>
+          <input type="text" [formControlName]="i" placeholder="Tag" />
+          <button type="button" (click)="removeTag(i)">Remove Tag</button>
+        </div>
+      }
+    </div>
+
+    <button type="submit" [disabled]="!productForm.valid">Submit</button>
+  </form>
+  <button type="button" (click)="updateProduct()">Update product</button>
+</div>
