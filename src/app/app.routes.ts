@@ -1,13 +1,14 @@
 import { InjectionToken } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AdminLayout } from './admin-layout/admin-layout';
-// import { ProductLayout } from './product-layout/product-layout';
+import { authGuardGuard } from './auth-guard-guard';
 export const ADMIN_KEY = new InjectionToken<any>('app.routes');
 
 export const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayout,
+    canActivate: [authGuardGuard],
     providers: [{
       provide: ADMIN_KEY,
       useValue: '123456',
