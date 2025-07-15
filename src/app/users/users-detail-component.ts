@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, effect, inject, OnInit } from "@angular/core";
 import { User, UserService } from "./users-service";
 import { ActivatedRoute } from "@angular/router";
 
@@ -22,11 +22,19 @@ export class UserDetailComponent implements OnInit {
   public user: User
   public loading: boolean
   constructor(private userService: UserService) {
+    effect(() => {
+      this.fetchUser()
+    })
     this.userId = Number(this.router.snapshot.paramMap.get('id'))
     this.user = new User(0, '')
     this.loading = true
   }
   ngOnInit() {
+    console.log('init')
+    // this.fetchUser()
+  }
+
+  fetchUser() {
     this.userService.getUser(this.userId).subscribe({
       next: user => {
         this.user = user
