@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { forbiddenNameValidator, unambiguousCategoryValidator } from '../../shared/validator';
+import { forbiddenNameValidator, unambiguousCategoryValidator } from '../../../shared/validator';
 
 @Component({
   selector: 'app-product-edit',

@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth/auth-service';
+import { AuthService } from '../../shared/auth/auth-service';
 import { FormsModule } from '@angular/forms';
 import { LoginModel } from './model';
-import { ForbiddenValidatorDirective } from '../shared/template-validator';
+import { ForbiddenValidatorDirective } from '../../shared/template-validator';
 import { JsonPipe } from '@angular/common';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
