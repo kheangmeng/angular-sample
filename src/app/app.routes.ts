@@ -1,7 +1,7 @@
 import { InjectionToken } from '@angular/core';
 import { Routes } from '@angular/router';
-import { AdminLayout } from './admin-layout/admin-layout';
-import { authGuardGuard } from './auth-guard-guard';
+import { AdminLayout } from './layouts/admin-layout/admin-layout';
+import { authGuardGuard } from './auth/auth-guard';
 export const ADMIN_KEY = new InjectionToken<any>('app.routes');
 
 export const routes: Routes = [
@@ -20,11 +20,11 @@ export const routes: Routes = [
       },
       {
         path: 'products',
-        loadComponent: () => import('./products/products').then(m => m.Products)
+        loadComponent: () => import('./products/product-list/products').then(m => m.Products)
       },
       {
         path: 'products/:id',
-        loadComponent: () => import('./product-edit/product-edit').then(m => m.ProductEdit)
+        loadComponent: () => import('./products/product-edit/product-edit').then(m => m.ProductEdit)
       }
     ]
   },
