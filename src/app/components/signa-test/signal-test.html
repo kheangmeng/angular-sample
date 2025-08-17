@@ -1,0 +1,82 @@
+<div>
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>First name</mat-label>
+    <input
+      matInput
+      [(ngModel)]="firstName"
+      name="firstName" type="input" placeholder="First name"
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Last name</mat-label>
+    <input
+      matInput
+      [(ngModel)]="lastName"
+      name="lastName" type="input" placeholder="Last name"
+      required
+    />
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Full name</mat-label>
+    <input
+      matInput
+      [ngModel]="fullName()"
+      name="fullName" type="input" placeholder="Full name"
+      disabled=""
+    />
+  </mat-form-field>
+  <br>
+  <button matButton="outlined" type="button" (click)="setName('John', 'Doe')">
+    Set Name
+  </button>
+  <button matButton="outlined" type="button" (click)="updateName('John', 'Doe')">
+    Update Name
+  </button>
+  <button matButton="outlined" type="button" (click)="resetName()">
+    Reset Name
+  </button>
+  <hr>
+
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Username</mat-label>
+    <input
+      matInput
+      [(ngModel)]="info().username"
+      (ngModelChange)="setUsername($event)"
+      name="username" type="input" placeholder="Username"
+      required
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      [(ngModel)]="info().email"
+      (ngModelChange)="setEmail($event)"
+      name="email" type="email" placeholder="Email"
+      required
+    />
+  </mat-form-field>
+  <br>
+
+  <mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Format Info</mat-label>
+    <input
+      matInput
+      [ngModel]="formatInfo()"
+      name="formatInfo" type="input" placeholder="format info"
+      disabled=""
+    />
+  </mat-form-field>
+  <br>
+  <button matButton="outlined" type="button" (click)="setInfo('John Dope', 'jonhdope@gmail.com')">
+    Set Info
+  </button>
+  <button matButton="outlined" type="button" (click)="updateInfo('John Swift', 'jonhswift@gmail.com')">
+    Update info
+  </button>
+</div>

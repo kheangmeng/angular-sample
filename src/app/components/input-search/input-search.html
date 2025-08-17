@@ -1,9 +1,15 @@
 <h3>Input Search</h3>
 <input type="text" [formControl]="searchInput" placeholder="Search..." />
-<div *ngIf="searchResult$ | async as results; else loading">
-  <ul *ngIf="results.length > 0; else noResult">
-    <li *ngFor="let item of results">{{ item }}</li>
-  </ul>
-  <ng-template #noResult>No result</ng-template>
-</div>
-<ng-template #loading>Loading..></ng-template>
+@if (searchResult$ | async; as results) {
+  @if (results.length > 0) {
+    <ul>
+      @for (item of results; track item) {
+        <li>{{ item }}</li>
+      }
+    </ul>
+  } @else {
+    No result
+  }
+} @else {
+  Loading...
+}
