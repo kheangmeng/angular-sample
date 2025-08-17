@@ -29,6 +29,14 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'a-module',
+    loadChildren: () => import('./features/a-module/a-module').then(m => m.AModule)
+  },
+  {
+    path: 'b-module',
+    loadChildren: () => import('./features/b-module/b-module').then(m => m.BModule)
+  },
+  {
     path: 'users',
     loadChildren: () => import('./features/users/users-module').then(m => m.UsersModule)
   },
