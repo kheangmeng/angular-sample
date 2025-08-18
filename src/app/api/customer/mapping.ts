@@ -9,7 +9,7 @@ export const mapCustomers = (res: any): CustomerResponse[] => {
     phone: customer.phone,
     photo_url: customer.photo_url,
     id_card_number: customer.id_card_number,
-    created_at: customer.created_at,
-    updated_at: customer.updated_at,
+    createdAt: customer.createdAt,
+    updatedAt: customer.updatedAt,
   }))
 }

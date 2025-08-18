@@ -8,7 +8,7 @@ import type { Pagination, PaymentResponse, Payment } from "../../types";
 @Injectable({
   providedIn: 'root',
 })
-export class AuthApiService {
+export class PaymentApiService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 

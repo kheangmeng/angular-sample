@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +14,6 @@ import { AuthApiService } from '../../api/auth/service';
   imports: [
     FormsModule,
     ForbiddenValidatorDirective,
-    JsonPipe,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
@@ -30,13 +28,10 @@ export class Login {
   constructor(public auth: AuthService, private authApiService: AuthApiService) {}
 
   handleSubmit():void {
-    // this.auth.setToken('auth-token-123')
-    // this.router.navigate(['profile'], {
-    //   queryParams: { 'first-login': true, username: 'hello' }
-    // })
     this.authApiService.login(this.login).subscribe({
       next: (res) => {
-        this.auth.setToken(res.token)
+        this.auth.setToken(res)
+        this.auth.setRefreshToken(res)
         this.router.navigate(['profile'], {
           queryParams: { 'first-login': true, username: 'hello' }
           })

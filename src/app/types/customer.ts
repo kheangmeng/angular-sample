@@ -8,8 +8,8 @@ export interface CustomerResponse {
   // is_active: boolean
   photo_url: string
   id_card_number: string
-  created_at: string
-  updated_at: string
+  createdAt: string
+  updatedAt: string
 }
 
 export type Customer = Pick<

@@ -1,8 +1,6 @@
-<div>
-  <h1>Login</h1>
-  {{ login | json }}
-  <form (ngSubmit)="handleSubmit()" class="loginForm" #loginForm="ngForm">
-    <mat-form-field appearance="outline" class="example-full-width">
+<div class="login-wrapper">
+  <form (ngSubmit)="handleSubmit()" class="login-form" #loginForm="ngForm">
+    <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input
         matInput
@@ -30,7 +28,7 @@
       }
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="example-full-width">
+    <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
       <input
         matInput

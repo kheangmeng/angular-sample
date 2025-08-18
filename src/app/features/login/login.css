@@ -1,6 +1,12 @@
-.loginForm {
-  margin: 10px;
-  max-width: 300px;
+.login-wrapper {
+  margin: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  min-width: 500px;
   display: flex;
   flex-direction: column;
   gap: 6px;

@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { authGuardGuard } from './shared/auth/auth-guard';
 import productsRoutes from './features/products/products.routes';
+import customersRoutes from './features/customers/customers.routes';
 
 export const ADMIN_KEY = new InjectionToken<any>('app.routes');
 
@@ -21,6 +22,7 @@ export const routes: Routes = [
         loadComponent: () => import('./features/dashboard/dashboard').then(m => m.Dashboard)
       },
       ...productsRoutes,
+      ...customersRoutes,
     ]
   },
   {

@@ -8,7 +8,7 @@ import type { Pagination, CustomerResponse } from "../../types";
 @Injectable({
   providedIn: 'root',
 })
-export class AuthApiService {
+export class CustomerApiService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) {}
 

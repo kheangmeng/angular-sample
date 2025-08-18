@@ -13,20 +13,20 @@ export class AuthApiService {
   constructor(private http: HttpClient) {}
 
   login(req: Login): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, req).pipe(
+    return this.http.post<LoginResponse>(`${this.apiUrl}/api/auth/login`, req).pipe(
       map(mapLoginResponse)
     )
   }
   signup(req: Signup): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/signup`, req).pipe(
+    return this.http.post<string>(`${this.apiUrl}/api/auth/signup`, req).pipe(
       map(mapSignupResponse)
     )
   }
   logout(): Observable<void> {
-    return this.http.post<void>(`${this.apiUrl}/logout`, {})
+    return this.http.post<void>(`${this.apiUrl}/api/auth/logout`, {})
   }
   refreshToken(): Observable<RefreshTokenResponse> {
-    return this.http.get<string>(`${this.apiUrl}/refresh-token`, {
+    return this.http.get<string>(`${this.apiUrl}/api/auth/refresh-token`, {
       headers: {
         'Content-Type': 'application/json',
         'x-refresh-token': `Bearer ${localStorage.getItem('refreshToken')}`,
