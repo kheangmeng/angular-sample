@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../shared/auth/auth-service';
 import { FormsModule } from '@angular/forms';
-import { LoginModel } from './model';
-import { ForbiddenValidatorDirective } from '../../shared/template-validator';
 import { JsonPipe } from '@angular/common';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { LoginModel } from './model';
+import { AuthService } from '../../shared/auth/auth-service';
+import { ForbiddenValidatorDirective } from '../../shared/template-validator';
+import { AuthApiService } from '../../api/auth/service';
 
 @Component({
   selector: 'app-login',
@@ -26,12 +27,23 @@ export class Login {
   private router = inject(Router)
   public login = new LoginModel('jonnhdoe@gmail.com', '123456789')
 
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService, private authApiService: AuthApiService) {}
 
   handleSubmit():void {
-    this.auth.setToken('auth-token-123')
-    this.router.navigate(['profile'], {
-      queryParams: { 'first-login': true, username: 'hello' }
+    // this.auth.setToken('auth-token-123')
+    // this.router.navigate(['profile'], {
+    //   queryParams: { 'first-login': true, username: 'hello' }
+    // })
+    this.authApiService.login(this.login).subscribe({
+      next: (res) => {
+        this.auth.setToken(res.token)
+        this.router.navigate(['profile'], {
+          queryParams: { 'first-login': true, username: 'hello' }
+          })
+      },
+      error: (err) => {
+        console.log(err)
+      }
     })
   }
 }

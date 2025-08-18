@@ -2,6 +2,8 @@ import { InjectionToken } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AdminLayout } from './layouts/admin-layout/admin-layout';
 import { authGuardGuard } from './shared/auth/auth-guard';
+import productsRoutes from './features/products/products.routes';
+
 export const ADMIN_KEY = new InjectionToken<any>('app.routes');
 
 export const routes: Routes = [
@@ -18,14 +20,7 @@ export const routes: Routes = [
         path: '',
         loadComponent: () => import('./features/dashboard/dashboard').then(m => m.Dashboard)
       },
-      {
-        path: 'products',
-        loadComponent: () => import('./features/products/product-list/products').then(m => m.Products)
-      },
-      {
-        path: 'products/:id',
-        loadComponent: () => import('./features/products/product-edit/product-edit').then(m => m.ProductEdit)
-      }
+      ...productsRoutes,
     ]
   },
   {
