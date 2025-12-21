@@ -46,6 +46,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/profile/profile').then(m => m.Profile)
   },
   {
+    path: 'register-signal',
+    loadComponent: () => import('./features/signal-form/register/register').then(m => m.RegisterForm)
+  },
+  {
     path: '**',
     loadComponent: () => import('./features/page-not-found/page-not-found').then(m => m.PageNotFound)
   }

@@ -1,0 +1,94 @@
+<div>
+  <h2>Register</h2>
+  <form (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+    <label for="email">
+      Email
+      <input
+        type="email"
+        [field]="registrationForm.email"
+        [class.is-invalid]="registrationForm.email().touched() && registrationForm.email().invalid()"
+        [class.is-valid]="registrationForm.email().touched() && registrationForm.email().valid()"
+      />
+    </label>
+    @if (registrationForm.email().touched() && registrationForm.email().invalid()) {
+      <p class="error">Email has validation errors:</p>
+      <ul>
+        @for (error of registrationForm.email().errors(); track error) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    }
+
+    <br>
+    <label>
+      Postal Code
+      <input [field]="registrationForm.postalCode" placeholder="12345" />
+    </label>
+    @if (registrationForm.postalCode().touched() && registrationForm.postalCode().invalid()) {
+      <p class="error">Postal Code has validation errors:</p>
+      <ul>
+        @for (error of registrationForm.postalCode().errors(); track error) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    }
+
+    <br>
+    <label>
+      Phone Number
+      <input [field]="registrationForm.phone" placeholder="555-123-4567" />
+    </label>
+    @if (registrationForm.phone().touched() && registrationForm.phone().invalid()) {
+      <p class="error">Phone has validation errors:</p>
+      <ul>
+        @for (error of registrationForm.phone().errors(); track error) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    }
+
+    <br>
+    <label>
+      New Password
+      @if(registrationForm.password().touched()) {
+        <span style="font-weight: 600;">({{ passwordStrength() }})</span>
+      }
+      <input
+        type="password"
+        [field]="registrationForm.password"
+        [class.is-invalid]="registrationForm.password().touched() && registrationForm.password().invalid()"
+        [class.is-valid]="registrationForm.password().touched() && registrationForm.password().valid()"
+      />
+    </label>
+    @if (registrationForm.password().touched() && registrationForm.password().invalid()) {
+      <p class="error">Password has validation errors:</p>
+      <ul>
+        @for (error of registrationForm.password().errors(); track error) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    }
+
+    <br>
+    <label>
+      Confirm Password
+      <input
+        type="password"
+        [field]="registrationForm.confirmPassword"
+        [class.is-invalid]="registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().invalid()"
+        [class.is-valid]="registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().valid()"
+      />
+    </label>
+    @if (registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().invalid()) {
+      <p class="error">Confirm Password has validation errors:</p>
+      <ul>
+        @for (error of registrationForm.confirmPassword().errors(); track error) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    }
+    <br>
+    <button type="button" (click)="resetForm()">Reset</button>
+    <button type="submit">Submit</button>
+  </form>
+</div>
