@@ -50,6 +50,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/signal-form/register/register').then(m => m.RegisterForm)
   },
   {
+    path: 'product-signal',
+    loadComponent: () => import('./features/signal-form/product/product').then(m => m.ProductForm)
+  },
+  {
     path: '**',
     loadComponent: () => import('./features/page-not-found/page-not-found').then(m => m.PageNotFound)
   }
