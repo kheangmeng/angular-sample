@@ -1,108 +1,100 @@
 <div class="m-8">
   <h2 class="text-3xl font-bold underline">Register</h2>
-  <form (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()" class="flex-col">
-    <div class="mb-3">
-      <label for="email">
-        Email:
-        <input
-          type="email"
-          class="border rounded px-1 mt-1 mb-1"
-          [field]="registrationForm.email"
-          [class.is-invalid]="registrationForm.email().touched() && registrationForm.email().invalid()"
-          [class.is-valid]="registrationForm.email().touched() && registrationForm.email().valid()"
-        />
-      </label>
-      @if (registrationForm.email().touched() && registrationForm.email().invalid()) {
-        <ul class="text-red-500 list-disc">
-          @for (error of registrationForm.email().errors(); track error) {
-            <li>{{ error.message }}</li>
-          }
-        </ul>
-      }
-    </div>
-
-    <div class="mb-3">
-      <label>
-        Postal Code:
-        <input
-          class="border rounded px-1 mt-1 mb-1"
-          [field]="registrationForm.postalCode"
-          placeholder="12345"
-          [class.is-invalid]="registrationForm.postalCode().touched() && registrationForm.postalCode().invalid()"
-          [class.is-valid]="registrationForm.postalCode().touched() && registrationForm.postalCode().valid()"
-        />
-      </label>
-      @if (registrationForm.postalCode().touched() && registrationForm.postalCode().invalid()) {
-        <ul class="text-red-500 list-disc">
-          @for (error of registrationForm.postalCode().errors(); track error) {
-            <li>{{ error.message }}</li>
-          }
-        </ul>
-      }
-    </div>
-
-    <div class="mb-3">
-      <label>
-        Phone Number:
-        <input
-          class="border rounded px-1 mt-1 mb-1"
-          [field]="registrationForm.phone"
-          placeholder="555-123-4567"
-          [class.is-invalid]="registrationForm.phone().touched() && registrationForm.phone().invalid()"
-          [class.is-valid]="registrationForm.phone().touched() && registrationForm.phone().valid()"
-        />
-      </label>
-      @if (registrationForm.phone().touched() && registrationForm.phone().invalid()) {
-        <ul class="text-red-500 list-disc">
-          @for (error of registrationForm.phone().errors(); track error) {
-            <li>{{ error.message }}</li>
-          }
-        </ul>
-      }
-    </div>
-
-    <div class="mb-3">
-      <label>
-        New Password:
-        <input
-          type="password"
-          class="border rounded px-1 mt-1 mb-1"
-          [field]="registrationForm.password"
-          [class.is-invalid]="registrationForm.password().touched() && registrationForm.password().invalid()"
-          [class.is-valid]="registrationForm.password().touched() && registrationForm.password().valid()"
-        />
-        @if(registrationForm.password().touched()) {
-          <span>({{ passwordStrength() }})</span>
+  <form (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()" class="flex-col w-80">
+    <field-wrapper class="mb-3" label="Email" [required]="true">
+      <input
+        type="email"
+        class="border rounded px-1 mt-1 mb-1"
+        [field]="registrationForm.email"
+        [class.is-invalid]="registrationForm.email().touched() && registrationForm.email().invalid()"
+        [class.is-valid]="registrationForm.email().touched() && registrationForm.email().valid()"
+      />
+      <div ngProjectAs="error-message">
+        @if (registrationForm.email().touched() && registrationForm.email().invalid()) {
+          <ul>
+            @for (error of registrationForm.email().errors(); track error) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
         }
-      </label>
-      @if (registrationForm.password().touched() && registrationForm.password().invalid()) {
-        <ul class="text-red-500 list-disc">
-          @for (error of registrationForm.password().errors(); track error) {
-            <li>{{ error.message }}</li>
-          }
-        </ul>
-      }
-    </div>
+      </div>
+    </field-wrapper>
 
-    <div class="mb-3">
-      <label>
-        Confirm Password:
-        <input
-          type="password"
-          class="border rounded px-1 mt-1 mb-1"
-          [field]="registrationForm.confirmPassword"
-          [class.is-invalid]="registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().invalid()"
-          [class.is-valid]="registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().valid()"
-        />
-      </label>
-      @if (registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().invalid()) {
-        <ul class="text-red-500 list-disc">
-          @for (error of registrationForm.confirmPassword().errors(); track error) {
-            <li>{{ error.message }}</li>
-          }
-        </ul>
-      }
-    </div>
+    <field-wrapper class="mb-3" label="Postal Code" [required]="true">
+      <input
+        class="border rounded px-1 mt-1 mb-1"
+        [field]="registrationForm.postalCode"
+        placeholder="12345"
+        [class.is-invalid]="registrationForm.postalCode().touched() && registrationForm.postalCode().invalid()"
+        [class.is-valid]="registrationForm.postalCode().touched() && registrationForm.postalCode().valid()"
+      />
+      <div ngProjectAs="error-message">
+        @if (registrationForm.postalCode().touched() && registrationForm.postalCode().invalid()) {
+          <ul>
+            @for (error of registrationForm.postalCode().errors(); track error) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+    </field-wrapper>
+
+    <field-wrapper class="mb-3" label="Phone Number" [required]="true">
+      <input
+        class="border rounded px-1 mt-1 mb-1"
+        [field]="registrationForm.phone"
+        placeholder="555-123-4567"
+        [class.is-invalid]="registrationForm.phone().touched() && registrationForm.phone().invalid()"
+        [class.is-valid]="registrationForm.phone().touched() && registrationForm.phone().valid()"
+      />
+      <div ngProjectAs="error-message">
+        @if (registrationForm.phone().touched() && registrationForm.phone().invalid()) {
+          <ul>
+            @for (error of registrationForm.phone().errors(); track error) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+    </field-wrapper>
+
+    <field-wrapper class="mb-3" label="New Password" [required]="true">
+      <input
+        type="password"
+        class="border rounded px-1 mt-1 mb-1"
+        [field]="registrationForm.password"
+        [class.is-invalid]="registrationForm.password().touched() && registrationForm.password().invalid()"
+        [class.is-valid]="registrationForm.password().touched() && registrationForm.password().valid()"
+      />
+      <div ngProjectAs="error-message">
+        @if (registrationForm.password().touched() && registrationForm.password().invalid()) {
+          <ul>
+            @for (error of registrationForm.password().errors(); track error) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+    </field-wrapper>
+
+    <field-wrapper class="mb-3" label="Confirm Password" [required]="true">
+      <input
+        type="password"
+        class="border rounded px-1 mt-1 mb-1"
+        [field]="registrationForm.confirmPassword"
+        [class.is-invalid]="registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().invalid()"
+        [class.is-valid]="registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().valid()"
+      />
+      <div ngProjectAs="error-message">
+        @if (registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().invalid()) {
+          <ul>
+            @for (error of registrationForm.confirmPassword().errors(); track error) {
+              <li>{{ error.message }}</li>
+            }
+          </ul>
+        }
+      </div>
+    </field-wrapper>
 
     <div class="gap-2 mt-4 flex">
       <button

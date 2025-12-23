@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { form, Field, required, minLength, validate, email, pattern, validateHttp } from '@angular/forms/signals';
+import { FieldWrapper } from '@components/field-wrapper/field-wrapper';
 
 interface RegisterModel {
   username: string;
@@ -25,7 +26,7 @@ function phoneNumber(field: any, options?: {message?: string}) {
 
 @Component({
   selector: 'app-register',
-  imports: [Field],
+  imports: [Field, FieldWrapper],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })

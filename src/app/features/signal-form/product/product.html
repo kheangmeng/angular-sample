@@ -1,7 +1,7 @@
 <div class="m-8">
   <h2 class="text-3xl font-bold underline">Product</h2>
   <form (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()" class="flex-col w-80">
-    <field-wrapper class="mb-3" [label]="'Name'" [required]="true">
+    <field-wrapper class="mb-3" label="Name" [required]="true">
       <input
         id="name"
         class="border rounded px-1"
@@ -21,7 +21,7 @@
       </div>
     </field-wrapper>
 
-    <field-wrapper [label]="'Qty'" [required]="true">
+    <field-wrapper label="Qty" [required]="true">
       <input
         id="qty"
         type="number"
@@ -42,7 +42,7 @@
       </div>
     </field-wrapper>
 
-    <field-wrapper [label]="'Description'" [required]="true">
+    <field-wrapper label="Description" [required]="true">
       <textarea
         id="description"
         class="border rounded px-1"
