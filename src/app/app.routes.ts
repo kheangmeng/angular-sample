@@ -21,9 +21,13 @@ export const routes: Routes = [
         path: '',
         loadComponent: () => import('./features/dashboard/dashboard').then(m => m.Dashboard)
       },
+      {
+        path: 'setting',
+        loadComponent: () => import('./features/admin-setting/admin-setting').then(m => m.AdminSetting)
+      },
       ...productsRoutes,
       ...customersRoutes,
-    ]
+    ],
   },
   {
     path: 'users',

@@ -1,21 +1,15 @@
 <mat-drawer-container class="drawer-container" autosize>
   <mat-drawer #drawer class="p-2 sidenav" mode="side" opened>
     <div class="flex flex-col gap-1">
-      <a mat-button routerLinkActive="active" href="/admin" class="flex items-center gap-2 p-2 rounded hover:bg-gray-200">
-        <mat-icon>space_dashboard</mat-icon>
-        <span>Dashboard</span>
-      </a>
-      <a mat-button routerLinkActive="active" href="/admin/customers" class="flex items-center gap-2 p-2 rounded hover:bg-gray-200">
-        <mat-icon>group</mat-icon>
-        <span>Customers</span>
-      </a>
-      <a mat-button routerLinkActive="active" href="/admin/products" class="flex items-center gap-2 p-2 rounded hover:bg-gray-200">
-        <mat-icon>inventory</mat-icon>
-        <span>Products</span>
-      </a>
+      @for(item of menuService.getMenu(); track item) {
+        <a mat-button routerLinkActive="active" href="{{item.url}}" class="flex items-center gap-2 p-2 rounded hover:bg-gray-200">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.title }}</span>
+        </a>
+      }
     </div>
   </mat-drawer>
-  <mat-drawer-content class="p-2 bg-white" style="height: 88vh;">
+  <mat-drawer-content class="p-2 bg-white" style="height: 90.5vh;">
     @if(drawer.opened) {
       <button mat-button (click)="drawer.toggle()">
         <mat-icon>arrow_circle_left</mat-icon>
