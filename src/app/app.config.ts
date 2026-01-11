@@ -3,6 +3,7 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 // import { AuthAndLoggingInterceptor } from './shared/auth-and-logging.interceptor.ts';
 
 // const authAndLoggingInterceptorFn = (req: any, next: any) => {
@@ -18,5 +19,6 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       // withInterceptors([authAndLoggingInterceptorFn])
     ),
+    provideCharts(withDefaultRegisterables()),
   ]
 };

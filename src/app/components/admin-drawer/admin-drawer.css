@@ -1,0 +1,12 @@
+.sidenav {
+  width: 250px;
+}
+.drawer-container {
+  width: auto;
+  min-height: 88vh;
+  margin: 10px;
+  /* border: 1px solid #555; */
+  /* The background property is added to clearly distinguish the borders between drawer and main
+     content */
+  /* background: #eee; */
+}

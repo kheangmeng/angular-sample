@@ -1,0 +1,30 @@
+<mat-toolbar color="primary">
+  <div class="flex items-center gap-10 text-sm">
+    <img src="https://placehold.co/220x40/EEE/31343C?font=oswald&text=Product Management" />
+    <a mat-button routerLinkActive="active" href="/admin">Dashboard</a>
+    <a mat-button routerLinkActive="active" href="/admin/customers">Customers</a>
+    <a mat-button routerLinkActive="active" href="/admin/products">Products</a>
+  </div>
+  <span class="toolbar-spacer"></span>
+  <button mat-button [matMenuTriggerFor]="menu" class="flex items-center">
+    <mat-icon>account_circle</mat-icon>
+    <div class="flex flex-col items-start ml-2">
+      <span class="text-sm">Jonh Doe</span>
+      <span class="text-xs text-gray-500">Software Engineer</span>
+    </div>
+  </button>
+  <mat-menu #menu="matMenu">
+    <a mat-menu-item href="/admin/profile" target="_blank">
+      <mat-icon>person</mat-icon>
+      <span>Profile</span>
+    </a>
+    <a mat-menu-item href="/admin/setting" target="_blank">
+      <mat-icon>settings</mat-icon>
+      <span>Setting</span>
+    </a>
+    <button mat-menu-item class="bg-red-500">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
