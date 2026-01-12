@@ -1,6 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CdkDrag, CdkDragDrop, CdkDropList, CdkDragPlaceholder, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatButton } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { menuTitles, menuItems } from "../../constants";
 import { ArrangedMenuService } from "../../arranged-menu.service";
 
@@ -8,11 +18,13 @@ import { ArrangedMenuService } from "../../arranged-menu.service";
   selector: 'arrange-menu',
   templateUrl: 'arrange-menu.html',
   styleUrl: 'arrange-menu.css',
-  imports: [CdkDrag, CdkDropList, CdkDragPlaceholder, MatButton],
+  imports: [CdkDrag, CdkDropList, CdkDragPlaceholder, MatButton, MatCardModule],
 })
 export class ArrangeMenu {
   menu = menuTitles;
   arrangedMenu = menuItems;
+  readonly dialog = inject(MatDialog);
+  private _snackBar = inject(MatSnackBar);
 
   constructor(public menuService:ArrangedMenuService) {
     const savedMenu = localStorage.getItem('arrangedMenu');
@@ -31,11 +43,36 @@ export class ArrangeMenu {
   drop(event: CdkDragDrop<string[]>) {
     const res = moveItemInArray(this.menu, event.previousIndex, event.currentIndex);
     this.handleArrange(this.menu);
-    console.log('arranged:', this.arrangedMenu);
   }
 
-  saveArrangement() {
-    this.menuService.setMenu(this.arrangedMenu);
-    console.log('Saved arrangement:', this.arrangedMenu);
+  saveArrangement(): void {
+    const dialogRef = this.dialog.open(DialogConfirm);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result !== undefined) {
+        this.menuService.setMenu(this.arrangedMenu);
+        this._snackBar.open('Menu Arranged', 'Saved');
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'dialog-confirm',
+  templateUrl: 'dialog-confirm.html',
+  standalone: true,
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+    MatButton,
+  ],
+})
+export class DialogConfirm {
+  readonly dialogRef = inject(MatDialogRef<DialogConfirm>);
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

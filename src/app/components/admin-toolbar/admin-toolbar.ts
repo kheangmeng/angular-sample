@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {MatBadgeModule} from '@angular/material/badge';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -8,6 +9,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   templateUrl: 'admin-toolbar.html',
   styleUrl: 'admin-toolbar.css',
   standalone: true,
-  imports: [MatToolbarModule, MatMenuModule, MatIconModule],
+  imports: [MatBadgeModule, MatToolbarModule, MatMenuModule, MatIconModule],
 })
 export class AdminToolbar {}
