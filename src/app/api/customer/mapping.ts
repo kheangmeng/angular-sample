@@ -8,7 +8,7 @@ export const mapCustomers = (res: any): CustomerResponse[] => {
     email: customer.email,
     phone: customer.phone,
     photo_url: customer.photo_url,
-    id_card_number: customer.id_card_number,
+    idCard: customer.idCard,
     createdAt: customer.createdAt,
     updatedAt: customer.updatedAt,
   }))

@@ -7,12 +7,12 @@ export interface CustomerResponse {
   // address: string
   // is_active: boolean
   photo_url: string
-  id_card_number: string
+  idCard: string
   createdAt: string
   updatedAt: string
 }
 
 export type Customer = Pick<
   CustomerResponse,
-  'name' | 'gender' | 'email' | 'phone' | 'photo_url' | 'id_card_number'
+  'name' | 'gender' | 'email' | 'phone' | 'photo_url' | 'idCard'
 >

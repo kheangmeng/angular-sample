@@ -3,8 +3,12 @@ export default [
     path: 'customers',
     loadComponent: () => import('./customer-list/customer-list').then(m => m.CustomerList)
   },
-  // {
-  //   path: 'customers/:id',
-  //   loadComponent: () => import('./customer-edit/customer-edit').then(m => m.CustomerEdit)
-  // }
+  {
+    path: 'customers/create',
+    loadComponent: () => import('./customer-create/customer-create').then(m => m.CustomerCreate)
+  },
+  {
+    path: 'customers/:id',
+    loadComponent: () => import('./customer-edit/customer-edit').then(m => m.CustomerEdit)
+  },
 ]
