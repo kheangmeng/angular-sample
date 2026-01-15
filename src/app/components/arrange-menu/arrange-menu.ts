@@ -11,7 +11,7 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { menuTitles, menuItems } from "../../constants";
+import { menuTitles, menuItems } from "../../shared/constants";
 import { ArrangedMenuService } from "../../arranged-menu.service";
 
 @Component({

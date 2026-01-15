@@ -38,10 +38,6 @@ export const routes: Routes = [
     loadComponent: () => import('./features/home-page/home-page').then(m => m.HomePage)
   },
   {
-    path: 'about',
-    loadComponent: () => import('./features/about/about').then(m => m.About)
-  },
-  {
     path: 'login',
     loadComponent: () => import('./features/login/login').then(m => m.Login)
   },

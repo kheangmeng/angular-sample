@@ -1,5 +1,5 @@
 import { Injectable, signal } from "@angular/core";
-import { menuItems } from "./constants";
+import { menuItems } from "./shared/constants";
 
 @Injectable({
     providedIn: 'root'
