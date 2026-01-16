@@ -5,7 +5,7 @@
       <input
         type="email"
         class="border rounded px-1 mt-1 mb-1"
-        [field]="registrationForm.email"
+        [formField]="registrationForm.email"
         [class.is-invalid]="registrationForm.email().touched() && registrationForm.email().invalid()"
         [class.is-valid]="registrationForm.email().touched() && registrationForm.email().valid()"
       />
@@ -23,7 +23,7 @@
     <field-wrapper class="mb-3" label="Postal Code" [required]="true">
       <input
         class="border rounded px-1 mt-1 mb-1"
-        [field]="registrationForm.postalCode"
+        [formField]="registrationForm.postalCode"
         placeholder="12345"
         [class.is-invalid]="registrationForm.postalCode().touched() && registrationForm.postalCode().invalid()"
         [class.is-valid]="registrationForm.postalCode().touched() && registrationForm.postalCode().valid()"
@@ -42,7 +42,7 @@
     <field-wrapper class="mb-3" label="Phone Number" [required]="true">
       <input
         class="border rounded px-1 mt-1 mb-1"
-        [field]="registrationForm.phone"
+        [formField]="registrationForm.phone"
         placeholder="555-123-4567"
         [class.is-invalid]="registrationForm.phone().touched() && registrationForm.phone().invalid()"
         [class.is-valid]="registrationForm.phone().touched() && registrationForm.phone().valid()"
@@ -62,7 +62,7 @@
       <input
         type="password"
         class="border rounded px-1 mt-1 mb-1"
-        [field]="registrationForm.password"
+        [formField]="registrationForm.password"
         [class.is-invalid]="registrationForm.password().touched() && registrationForm.password().invalid()"
         [class.is-valid]="registrationForm.password().touched() && registrationForm.password().valid()"
       />
@@ -81,7 +81,7 @@
       <input
         type="password"
         class="border rounded px-1 mt-1 mb-1"
-        [field]="registrationForm.confirmPassword"
+        [formField]="registrationForm.confirmPassword"
         [class.is-invalid]="registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().invalid()"
         [class.is-valid]="registrationForm.confirmPassword().touched() && registrationForm.confirmPassword().valid()"
       />

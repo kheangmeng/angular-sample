@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { form, Field, required, min, max } from '@angular/forms/signals';
+import { FormField, form, required, min, max } from '@angular/forms/signals';
 import { FieldWrapper } from '@components/field-wrapper/field-wrapper';
 
 interface ProductModel {
@@ -10,7 +10,7 @@ interface ProductModel {
 
 @Component({
   selector: 'app-product',
-  imports: [Field, FieldWrapper],
+  imports: [FieldWrapper, FormField],
   templateUrl: './product.html',
   styleUrl: './product.css'
 })

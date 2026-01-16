@@ -5,7 +5,7 @@
       <input
         id="name"
         class="border rounded px-1"
-        [field]="productForm.name"
+        [formField]="productForm.name"
         [class.is-invalid]="productForm.name().touched() && productForm.name().invalid()"
         [class.is-valid]="productForm.name().touched() && productForm.name().valid()"
       />
@@ -26,7 +26,7 @@
         id="qty"
         type="number"
         class="border rounded px-1"
-        [field]="productForm.qty"
+        [formField]="productForm.qty"
         [class.is-invalid]="productForm.qty().touched() && productForm.qty().invalid()"
         [class.is-valid]="productForm.qty().touched() && productForm.qty().valid()"
       />
@@ -46,7 +46,7 @@
       <textarea
         id="description"
         class="border rounded px-1"
-        [field]="productForm.description"
+        [formField]="productForm.description"
         [class.is-invalid]="productForm.description().touched() && productForm.description().invalid()"
         [class.is-valid]="productForm.description().touched() && productForm.description().valid()"
       ></textarea>
