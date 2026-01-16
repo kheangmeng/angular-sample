@@ -1,5 +1,158 @@
 <mat-tab-group>
-  <mat-tab label="Product Information"> Content 1 </mat-tab>
-  <mat-tab label="Product Detail"> Content 2 </mat-tab>
-  <mat-tab label="Product Category"> Content 3 </mat-tab>
+  <mat-tab label="Product Information">
+    <mat-card appearance="outlined" class="m-6">
+      <mat-card-content>
+        <div class="flex flex-col">
+          <div class="flex gap-3">
+            <mat-form-field class="w-1/2">
+              <mat-label>Product Name</mat-label>
+                <input
+                  matInput
+                  placeholder="Product name"
+                  [formField]="productForm.name"
+                >
+            </mat-form-field>
+            <mat-form-field class="w-1/2">
+              <mat-label>Slug</mat-label>
+              <input
+                matInput
+                placeholder="Slug"
+                [formField]="productForm.slug"
+              >
+            </mat-form-field>
+          </div>
+          <div class="flex gap-3">
+            <mat-form-field class="w-1/2">
+              <mat-label>Base Price</mat-label>
+              <input
+                matInput
+                type="number"
+                placeholder="Base Price"
+                [formField]="productForm.basePrice"
+              >
+              <mat-icon matSuffix>attach_money</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="w-1/2">
+              <mat-label>Brand</mat-label>
+              <mat-select
+                placeholder="Brand"
+                [formField]="productForm.brand">
+                <mat-option value="Apple">Apple</mat-option>
+                <mat-option value="Samsung">Samsung</mat-option>
+                <mat-option value="Xiaomi">Xiaomi</mat-option>
+                <mat-option value="Oppo">Oppo</mat-option>
+                <mat-option value="Lenovo">Lenovo</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="flex items-center gap-3">
+            <mat-form-field class="w-1/2">
+              <mat-label>Category</mat-label>
+              <mat-select
+                placeholder="Category"
+                [formField]="productForm.categoryId">
+                <mat-option value="phone">Smart Phone</mat-option>
+                <mat-option value="tablet">Tablet</mat-option>
+                <mat-option value="watch">Smart Watch</mat-option>
+                <mat-option value="laptop">Laptop</mat-option>
+                <mat-option value="monitor">Monitor</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p><mat-slide-toggle>Active Product</mat-slide-toggle></p>
+          </div>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput [formField]="productForm.description"></textarea>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Product Variant">
+    <mat-card appearance="outlined" class="m-6">
+      <mat-card-content>
+        <div class="flex flex-col">
+          <div class="flex gap-3">
+            <mat-form-field class="w-1/2">
+              <mat-label>Option Type</mat-label>
+              <mat-select
+                placeholder="Option Type"
+                [formField]="productForm.optionTypeId">
+                <mat-option value="color">Color</mat-option>
+                <mat-option value="size">Size</mat-option>
+                <mat-option value="storage">Storage</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="w-1/2">
+              <mat-label>Option Value</mat-label>
+              <mat-select
+                placeholder="Option Value"
+                [formField]="productForm.optionTypeId">
+                <mat-option value="color">Color</mat-option>
+                <mat-option value="size">Size</mat-option>
+                <mat-option value="storage">Storage</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="flex gap-3">
+            <mat-form-field class="w-1/2">
+              <mat-label>Price</mat-label>
+              <input
+                matInput
+                type="number"
+                placeholder="Price"
+                [formField]="productForm.basePrice"
+              >
+              <mat-icon matSuffix>attach_money</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="w-1/2">
+              <mat-label>sku</mat-label>
+              <input
+                matInput
+                placeholder="sku"
+                [formField]="productForm.slug"
+              >
+            </mat-form-field>
+          </div>
+          <div class="flex gap-3">
+            <mat-form-field class="w-1/2">
+              <mat-label>Stock Quantity</mat-label>
+              <input
+                matInput
+                type="number"
+                placeholder="Stock Quantity"
+                [formField]="productForm.basePrice"
+              >
+            </mat-form-field>
+            <mat-form-field class="w-1/2">
+              <mat-label>Weight</mat-label>
+              <input
+                matInput
+                type="number"
+                placeholder="Weight"
+                [formField]="productForm.basePrice"
+              >
+            </mat-form-field>
+          </div>
+          <p><mat-slide-toggle>Active Product Variant</mat-slide-toggle></p>
+          <mat-form-field>
+            <mat-label>Product Image</mat-label>
+            <input
+              matInput readonly formControlName="idCardFront"
+              required style="visibility: hidden;">
+            <file-upload
+              (onFileUploaded)="getUploadedFileUrl($event)"
+            ></file-upload>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div class="flex justify-end space-x-3 mr-6">
+      <button mat-stroked-button>Cancel</button>
+      <button
+        mat-flat-button
+        (click)="onSubmit()"
+      >Submit</button>
+    </div>
+  </mat-tab>
 </mat-tab-group>

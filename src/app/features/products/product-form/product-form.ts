@@ -1,5 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {Component, signal} from '@angular/core';
+import { FormField, form, required, min, max } from '@angular/forms/signals';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -7,9 +7,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatCardModule} from '@angular/material/card';
 import { FileUpload } from '@components/file-upload/file-upload';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
+import { ProductVariant, Product } from '../../../types/product';
 
 @Component({
   selector: 'product-form',
@@ -20,55 +23,114 @@ import {MatTabsModule} from '@angular/material/tabs';
   imports: [
     MatButtonModule,
     MatStepperModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
     MatIconModule,
     MatTabsModule,
+    FormField,
+    MatSlideToggleModule,
+    MatCardModule,
     FileUpload,
   ],
 })
 export class ProductForm {
-  private _formBuilder = inject(FormBuilder);
+  productModel = signal<Product>({
+    id: null,
+    name: '',
+    slug: '',
+    description: '',
+    categoryId: 0,
+    brand: '',
+    basePrice: 0,
+    isActive: true,
+    optionTypeId: 0,
+  })
+  productForm = form(this.productModel, (schemaPath) => {
+    required(schemaPath.name, { message: 'Name is required' })
+    required(schemaPath.slug, { message: 'Slug is required' })
 
-  firstFormGroup = this._formBuilder.group({
-    firstName: ['', Validators.required, Validators.minLength(2)],
-    lastName: ['', Validators.required, Validators.minLength(2)],
-    gender: ['', Validators.required],
-    dob: ['', Validators.required],
-    pob: ['', Validators.required],
-    phone: ['', Validators.required],
-    email: ['', Validators.required, Validators.email],
-  });
-  secondFormGroup = this._formBuilder.group({
-    street: ['', Validators.required],
-    city: ['', Validators.required],
-    state: ['', Validators.required],
-    zipCode: ['', Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')],
-    country: ['', Validators.required],
-  });
-  thirdFormGroup = this._formBuilder.group({
-    idCardFront: ['', Validators.required],
-    idCardBack: ['', Validators.required],
-  });
-  isLinear = false;
+    required(schemaPath.basePrice, { message: 'Base price is required' })
+    min(schemaPath.basePrice, 1, { message: 'Base price must be at least 1' })
+    max(schemaPath.basePrice, 1000, { message: 'Base price must be at most 1000'})
 
-  getUploadedFileUrl(fileUrl: string, controlName: string) {
-    if (controlName === 'idCardFront') {
-      this.thirdFormGroup.patchValue({ idCardFront: fileUrl });
-    } else if (controlName === 'idCardBack') {
-      this.thirdFormGroup.patchValue({ idCardBack: fileUrl });
-    }
+    required(schemaPath.categoryId, { message: 'Category is required' })
+    required(schemaPath.optionTypeId, { message: 'Option Type is required' })
+  })
+
+  productVariantModel = signal<ProductVariant>({
+    id: null,
+    productId: null,
+    sku: '',
+    price: '',
+    stockQuantity: 0,
+    weight: 0,
+    isActive: true,
+    images: [],
+    optionValueId: 0,
+  })
+  productVariantForm = form(this.productVariantModel, (schemaPath) => {
+    required(schemaPath.sku, { message: 'SKU is required' })
+    required(schemaPath.optionValueId, { message: 'Option is required' })
+
+    required(schemaPath.price, { message: 'Price is required' })
+    min(schemaPath.price, 1, { message: 'Price must be at least 1' })
+    max(schemaPath.price, 1000, { message: 'Price must be at most 1000'})
+
+    required(schemaPath.stockQuantity, { message: 'Stock quantity is required' })
+    min(schemaPath.stockQuantity, 1, { message: 'Stock quantity must be at least 1' })
+  })
+
+  resetForm() {
+    this.productForm().reset()
+    this.productModel.set({
+      id: null,
+      name: '',
+      slug: '',
+      description: '',
+      categoryId: 0,
+      brand: '',
+      basePrice: 0,
+      isActive: true,
+      optionTypeId: 0,
+    })
+
+    this.productVariantForm().reset()
+    this.productVariantModel.set({
+      id: null,
+      productId: null,
+      sku: '',
+      price: '',
+      stockQuantity: 0,
+      weight: 0,
+      isActive: true,
+      images: [],
+      optionValueId: 0,
+    })
   }
+
+  getUploadedFileUrl(fileUrl: string) {
+    console.log('Uploaded file URL:', fileUrl);
+    const currentImages = this.productVariantModel().images;
+    this.productVariantModel.set({
+      ...this.productVariantModel(),
+      images: [...currentImages, fileUrl],
+    });
+  }
+
   onSubmit() {
-    const customerData = {
-      ...this.firstFormGroup.value,
-      ...this.secondFormGroup.value,
-      ...this.thirdFormGroup.value,
-    };
-    console.log('Customer Data:', customerData);
+    if (this.productForm().pending()) {
+      console.log('Waiting for validation...');
+      return;
+    }
+
+    if (this.productForm().invalid()) {
+      console.error('Form is invalid');
+      return;
+    }
+    const data = this.productModel();
+    console.log('Registration Successful', data)
+    // await this.api.product(data);
   }
 }
