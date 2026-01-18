@@ -11,20 +11,22 @@
         appForbiddenName="test"
         #email="ngModel"
       />
-      @if (email.invalid && (email.dirty || email.touched) && email.hasError('required')) {
-        <mat-error>
-          Email is required.
-        </mat-error>
-      }
-      @if (email.invalid && (email.dirty || email.touched) && email.hasError('email')) {
-        <mat-error>
-          Email is invalid.
-        </mat-error>
-      }
-      @if (email.invalid && (email.dirty || email.touched) && email.hasError('forbiddenName')) {
-        <mat-error>
-          Do not include 'test' in email.
-        </mat-error>
+      @if(email.invalid && (email.dirty || email.touched)) {
+        @if (email.hasError('required')) {
+          <mat-error>
+            Email is required.
+          </mat-error>
+        }
+        @if (email.hasError('email')) {
+          <mat-error>
+            Email is invalid.
+          </mat-error>
+        }
+        @if (email.hasError('forbiddenName')) {
+          <mat-error>
+            Do not include 'test' in email.
+          </mat-error>
+        }
       }
     </mat-form-field>
 
@@ -37,15 +39,17 @@
         required minlength="8"
         #password="ngModel"
       />
-      @if (password.invalid && (password.dirty || password.touched) && password.hasError('required')) {
-        <mat-error>
-          Password is required.
-        </mat-error>
-      }
-      @if (password.invalid && (password.dirty || password.touched) && password.hasError('minlength')) {
-        <mat-error>
-          Password must be at least 8 characters long.
-        </mat-error>
+      @if(password.invalid && (password.dirty || password.touched)) {
+        @if (password.hasError('required')) {
+          <mat-error>
+            Password is required.
+          </mat-error>
+        }
+        @if (password.hasError('minlength')) {
+          <mat-error>
+            Password must be at least 8 characters long.
+          </mat-error>
+        }
       }
     </mat-form-field>
     <button matButton="outlined" type="submit" [disabled]="!loginForm.form.valid">

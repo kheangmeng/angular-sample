@@ -33,19 +33,19 @@ export class CustomerForm {
   private _formBuilder = inject(FormBuilder);
 
   firstFormGroup = this._formBuilder.group({
-    firstName: ['', Validators.required, Validators.minLength(2)],
-    lastName: ['', Validators.required, Validators.minLength(2)],
+    firstName: ['', [Validators.required, Validators.minLength(2)]],
+    lastName: ['', [Validators.required, Validators.minLength(2)]],
     gender: ['', Validators.required],
-    dob: ['', Validators.required],
-    pob: ['', Validators.required],
+    dob: [],
+    pob: [],
     phone: ['', Validators.required],
-    email: ['', Validators.required, Validators.email],
+    email: ['', [Validators.required, Validators.email]],
   });
   secondFormGroup = this._formBuilder.group({
     street: ['', Validators.required],
     city: ['', Validators.required],
     state: ['', Validators.required],
-    zipCode: ['', Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')],
+    zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')]],
     country: ['', Validators.required],
   });
   thirdFormGroup = this._formBuilder.group({

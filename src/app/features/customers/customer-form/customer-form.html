@@ -5,12 +5,26 @@
       <div class="flex flex-col">
         <div class="flex gap-3">
           <mat-form-field class="w-1/2">
-          <mat-label>First Name</mat-label>
-            <input matInput placeholder="First name" formControlName="firstName" required>
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="First name" formControlName="firstName" required />
+            @if(firstFormGroup.get('firstName')?.invalid && (firstFormGroup.get('firstName')?.dirty || firstFormGroup.get('firstName')?.touched)) {
+              @if (firstFormGroup.get('firstName')?.hasError('required')) {
+                <mat-error>
+                  First Name is required.
+                </mat-error>
+              }
+            }
           </mat-form-field>
           <mat-form-field class="w-1/2">
             <mat-label>Last Name</mat-label>
             <input matInput placeholder="Last name" formControlName="lastName" required>
+            @if(firstFormGroup.get('lastName')?.invalid && (firstFormGroup.get('lastName')?.dirty || firstFormGroup.get('lastName')?.touched)) {
+              @if (firstFormGroup.get('lastName')?.hasError('required')) {
+                <mat-error>
+                  Last Name is required.
+                </mat-error>
+              }
+            }
           </mat-form-field>
         </div>
         <mat-form-field>
@@ -19,10 +33,17 @@
             <mat-option value="male">Male</mat-option>
             <mat-option value="female">Female</mat-option>
           </mat-select>
+          @if(firstFormGroup.get('gender')?.invalid && (firstFormGroup.get('gender')?.dirty || firstFormGroup.get('gender')?.touched)) {
+            @if (firstFormGroup.get('gender')?.hasError('required')) {
+              <mat-error>
+                Gender is required.
+              </mat-error>
+            }
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Date of birth</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="dob" required>
+          <input matInput [matDatepicker]="picker" formControlName="dob">
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -35,11 +56,25 @@
           <mat-label>Phone Number</mat-label>
           <input matInput placeholder="Phone Number" formControlName="phone" required>
           <mat-icon matSuffix>phone</mat-icon>
+          @if(firstFormGroup.get('phone')?.invalid && (firstFormGroup.get('phone')?.dirty || firstFormGroup.get('phone')?.touched)) {
+            @if (firstFormGroup.get('phone')?.hasError('required')) {
+              <mat-error>
+                Phone number is required.
+              </mat-error>
+            }
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Email</mat-label>
           <input matInput placeholder="example@email.com" formControlName="email" required>
           <mat-icon matSuffix>email</mat-icon>
+          @if(firstFormGroup.get('email')?.invalid && (firstFormGroup.get('email')?.dirty || firstFormGroup.get('email')?.touched)) {
+            @if (firstFormGroup.get('email')?.hasError('required')) {
+              <mat-error>
+                Email is required.
+              </mat-error>
+            }
+          }
         </mat-form-field>
       </div>
       <div class="flex justify-end">
@@ -57,22 +92,57 @@
         <mat-form-field>
           <mat-label>Street Address</mat-label>
           <input matInput formControlName="street" placeholder="Ex. 1 Main St" required>
+          @if(firstFormGroup.get('street')?.invalid && (firstFormGroup.get('street')?.dirty || firstFormGroup.get('street')?.touched)) {
+            @if (firstFormGroup.get('street')?.hasError('required')) {
+              <mat-error>
+                Street is required.
+              </mat-error>
+            }
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>City</mat-label>
           <input matInput formControlName="city" placeholder="Ex. New York" required>
+          @if(firstFormGroup.get('city')?.invalid && (firstFormGroup.get('city')?.dirty || firstFormGroup.get('city')?.touched)) {
+            @if (firstFormGroup.get('city')?.hasError('required')) {
+              <mat-error>
+                City is required.
+              </mat-error>
+            }
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>State</mat-label>
           <input matInput formControlName="state" placeholder="Ex. NY" required>
+          @if(firstFormGroup.get('state')?.invalid && (firstFormGroup.get('state')?.dirty || firstFormGroup.get('state')?.touched)) {
+            @if (firstFormGroup.get('state')?.hasError('required')) {
+              <mat-error>
+                State is required.
+              </mat-error>
+            }
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Zip Code</mat-label>
           <input matInput type="number" formControlName="zipCode" placeholder="Ex. 10001" required>
+          @if(firstFormGroup.get('zipCode')?.invalid && (firstFormGroup.get('zipCode')?.dirty || firstFormGroup.get('zipCode')?.touched)) {
+            @if (firstFormGroup.get('zipCode')?.hasError('required')) {
+              <mat-error>
+                Zip code is required.
+              </mat-error>
+            }
+          }
         </mat-form-field>
         <mat-form-field>
           <mat-label>Country</mat-label>
           <input matInput formControlName="country" placeholder="Ex. USA" required>
+          @if(firstFormGroup.get('country')?.invalid && (firstFormGroup.get('country')?.dirty || firstFormGroup.get('country')?.touched)) {
+            @if (firstFormGroup.get('country')?.hasError('required')) {
+              <mat-error>
+                Country is required.
+              </mat-error>
+            }
+          }
         </mat-form-field>
       </div>
       <div class="space-x-3">
@@ -115,7 +185,9 @@
           mat-flat-button
           [disabled]="!thirdFormGroup.valid"
           (click)="onSubmit()"
-        >Submit</button>
+        >
+          Submit
+        </button>
       </div>
     </form>
   </mat-step>
