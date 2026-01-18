@@ -10,8 +10,9 @@
   {{fileName || "No file uploaded yet."}}
   <button
     type="button"
-    mat-button mat-mini-fab
-    color="primary" class="upload-btn"
+    mat-button
+    mat-icon-button
+    color="primary"
     (click)="fileUpload.click()"
   >
     <mat-icon>attach_file</mat-icon>

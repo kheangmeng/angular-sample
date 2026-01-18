@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
-import { FormField, form, disabled, required, min, max, submit } from '@angular/forms/signals';
+import { applyEach, form, disabled, required, min, max, submit,  FormField, SchemaPathTree } from '@angular/forms/signals';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -14,6 +14,21 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ProductVariant, Product } from '../../../types/product';
+
+function ItemSchema(schemaPath: SchemaPathTree<ProductVariant>) {
+  disabled(schemaPath.price, ({valueOf}) => valueOf(schemaPath.id) !== null)
+
+  required(schemaPath.sku, { message: 'SKU is required' })
+  required(schemaPath.optionTypeId, { message: 'Option Type is required' })
+  required(schemaPath.optionValueId, { message: 'Option is required' })
+
+  required(schemaPath.price, { message: 'Price is required' })
+  min(schemaPath.price, 1, { message: 'Price must be at least 1' })
+  max(schemaPath.price, 1000, { message: 'Price must be at most 1000'})
+
+  required(schemaPath.stockQuantity, { message: 'Stock quantity is required' })
+  min(schemaPath.stockQuantity, 1, { message: 'Stock quantity must be at least 1' })
+}
 
 @Component({
   selector: 'product-form',
@@ -49,6 +64,18 @@ export class ProductForm {
     brand: '',
     basePrice: 0,
     isActive: true,
+    variants: [{
+      id: null,
+      productId: null,
+      sku: '',
+      price: '',
+      stockQuantity: 0,
+      weight: 0,
+      isActive: true,
+      image: '',
+      optionTypeId: 0,
+      optionValueId: 0,
+    }],
   })
   productForm = form(this.productModel, (schemaPath) => {
     required(schemaPath.name, { message: 'Name is required' })
@@ -59,33 +86,8 @@ export class ProductForm {
     max(schemaPath.basePrice, 1000, { message: 'Base price must be at most 1000'})
 
     required(schemaPath.categoryId, { message: 'Category is required' })
-  })
 
-  productVariantModel = signal<ProductVariant>({
-    id: null,
-    productId: null,
-    sku: '',
-    price: '',
-    stockQuantity: 0,
-    weight: 0,
-    isActive: true,
-    image: '',
-    optionTypeId: 0,
-    optionValueId: 0,
-  })
-  productVariantForm = form(this.productVariantModel, (schemaPath) => {
-    disabled(schemaPath.price, ({valueOf}) => valueOf(schemaPath.id) !== null)
-
-    required(schemaPath.sku, { message: 'SKU is required' })
-    required(schemaPath.optionTypeId, { message: 'Option Type is required' })
-    required(schemaPath.optionValueId, { message: 'Option is required' })
-
-    required(schemaPath.price, { message: 'Price is required' })
-    min(schemaPath.price, 1, { message: 'Price must be at least 1' })
-    max(schemaPath.price, 1000, { message: 'Price must be at most 1000'})
-
-    required(schemaPath.stockQuantity, { message: 'Stock quantity is required' })
-    min(schemaPath.stockQuantity, 1, { message: 'Stock quantity must be at least 1' })
+    applyEach(schemaPath.variants, ItemSchema)
   })
 
   resetForm() {
@@ -99,10 +101,23 @@ export class ProductForm {
       brand: '',
       basePrice: 0,
       isActive: true,
+      variants: [{
+        id: null,
+        productId: null,
+        sku: '',
+        price: '',
+        stockQuantity: 0,
+        weight: 0,
+        isActive: true,
+        image: '',
+        optionTypeId: 0,
+        optionValueId: 0,
+      }],
     })
+  }
 
-    this.productVariantForm().reset()
-    this.productVariantModel.set({
+  addVariant() {
+    const variant = {
       id: null,
       productId: null,
       sku: '',
@@ -113,23 +128,34 @@ export class ProductForm {
       image: '',
       optionTypeId: 0,
       optionValueId: 0,
-    })
+    };
+    this.productModel.set({
+      ...this.productModel(),
+      variants: [...this.productModel().variants, variant],
+    });
   }
 
-  getUploadedFileUrl(fileUrl: string) {
+  getUploadedFileUrl(fileUrl: string, index: number) {
     console.log('Uploaded file URL:', fileUrl);
-    const currentImage = this.productVariantModel().image;
-    this.productVariantModel.set({
-      ...this.productVariantModel(),
-      image: fileUrl || currentImage,
+    const currentImage = this.productModel().variants[index].image;
+    this.productModel.set({
+      ...this.productModel(),
+      variants: this.productModel().variants.map((variant, i) => {
+        if (i === index) {
+          return {
+            ...variant,
+            image: fileUrl || currentImage,
+          };
+        }
+        return variant;
+      }),
     });
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
-    submit(this.productVariantForm, async () => {
-      console.log('productForm is valid! Submitting...', this.productVariantModel());
-      console.log('productVariantForm is valid! Submitting...', this.productVariantModel());
+    submit(this.productForm, async () => {
+      console.log('productForm is valid! Submitting...', this.productModel());
     });
     // if (this.productForm().pending()) {
     //   console.log('Waiting for validation...');

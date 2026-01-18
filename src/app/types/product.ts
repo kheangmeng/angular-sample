@@ -33,6 +33,7 @@ export interface Product {
   brand: string;
   basePrice: number;
   isActive: boolean | null;
+  variants: ProductVariant[];
 }
 
 export interface ProductApi {
