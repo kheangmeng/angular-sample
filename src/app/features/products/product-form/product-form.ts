@@ -1,5 +1,5 @@
-import {Component, signal} from '@angular/core';
-import { FormField, form, required, min, max } from '@angular/forms/signals';
+import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import { FormField, form, disabled, required, min, max, submit } from '@angular/forms/signals';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -12,6 +12,7 @@ import {MatCardModule} from '@angular/material/card';
 import { FileUpload } from '@components/file-upload/file-upload';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatExpansionModule} from '@angular/material/expansion';
 import { ProductVariant, Product } from '../../../types/product';
 
 @Component({
@@ -32,10 +33,13 @@ import { ProductVariant, Product } from '../../../types/product';
     FormField,
     MatSlideToggleModule,
     MatCardModule,
+    MatExpansionModule,
     FileUpload,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductForm {
+  readonly panelOpenState = signal(true);
   productModel = signal<Product>({
     id: null,
     name: '',
@@ -45,7 +49,6 @@ export class ProductForm {
     brand: '',
     basePrice: 0,
     isActive: true,
-    optionTypeId: 0,
   })
   productForm = form(this.productModel, (schemaPath) => {
     required(schemaPath.name, { message: 'Name is required' })
@@ -56,7 +59,6 @@ export class ProductForm {
     max(schemaPath.basePrice, 1000, { message: 'Base price must be at most 1000'})
 
     required(schemaPath.categoryId, { message: 'Category is required' })
-    required(schemaPath.optionTypeId, { message: 'Option Type is required' })
   })
 
   productVariantModel = signal<ProductVariant>({
@@ -67,11 +69,15 @@ export class ProductForm {
     stockQuantity: 0,
     weight: 0,
     isActive: true,
-    images: [],
+    image: '',
+    optionTypeId: 0,
     optionValueId: 0,
   })
   productVariantForm = form(this.productVariantModel, (schemaPath) => {
+    disabled(schemaPath.price, ({valueOf}) => valueOf(schemaPath.id) !== null)
+
     required(schemaPath.sku, { message: 'SKU is required' })
+    required(schemaPath.optionTypeId, { message: 'Option Type is required' })
     required(schemaPath.optionValueId, { message: 'Option is required' })
 
     required(schemaPath.price, { message: 'Price is required' })
@@ -93,7 +99,6 @@ export class ProductForm {
       brand: '',
       basePrice: 0,
       isActive: true,
-      optionTypeId: 0,
     })
 
     this.productVariantForm().reset()
@@ -105,32 +110,38 @@ export class ProductForm {
       stockQuantity: 0,
       weight: 0,
       isActive: true,
-      images: [],
+      image: '',
+      optionTypeId: 0,
       optionValueId: 0,
     })
   }
 
   getUploadedFileUrl(fileUrl: string) {
     console.log('Uploaded file URL:', fileUrl);
-    const currentImages = this.productVariantModel().images;
+    const currentImage = this.productVariantModel().image;
     this.productVariantModel.set({
       ...this.productVariantModel(),
-      images: [...currentImages, fileUrl],
+      image: fileUrl || currentImage,
     });
   }
 
-  onSubmit() {
-    if (this.productForm().pending()) {
-      console.log('Waiting for validation...');
-      return;
-    }
+  onSubmit(event: Event) {
+    event.preventDefault();
+    submit(this.productVariantForm, async () => {
+      console.log('productForm is valid! Submitting...', this.productVariantModel());
+      console.log('productVariantForm is valid! Submitting...', this.productVariantModel());
+    });
+    // if (this.productForm().pending()) {
+    //   console.log('Waiting for validation...');
+    //   return;
+    // }
 
-    if (this.productForm().invalid()) {
-      console.error('Form is invalid');
-      return;
-    }
-    const data = this.productModel();
-    console.log('Registration Successful', data)
+    // if (this.productForm().invalid()) {
+    //   console.error('Form is invalid');
+    //   return;
+    // }
+    // const data = this.productModel();
+    // console.log('Registration Successful', data)
     // await this.api.product(data);
   }
 }

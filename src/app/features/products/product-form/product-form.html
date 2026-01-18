@@ -1,158 +1,244 @@
-<mat-tab-group>
-  <mat-tab label="Product Information">
-    <mat-card appearance="outlined" class="m-6">
-      <mat-card-content>
-        <div class="flex flex-col">
-          <div class="flex gap-3">
-            <mat-form-field class="w-1/2">
-              <mat-label>Product Name</mat-label>
+<form (submit)="onSubmit($event)">
+  <mat-tab-group>
+    <mat-tab label="Product Information">
+      <mat-card appearance="outlined" class="my-6">
+        <mat-card-content>
+          <div class="flex flex-col">
+            <div class="flex gap-3">
+              <mat-form-field class="w-1/2">
+                <mat-label>Product Name</mat-label>
                 <input
                   matInput
                   placeholder="Product name"
                   [formField]="productForm.name"
+                />
+                @if (productForm.name().touched() && productForm.name().invalid()) {
+                  <mat-error>
+                    @for (error of productForm.name().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field class="w-1/2">
+                <mat-label>Slug</mat-label>
+                <input
+                  matInput
+                  placeholder="Slug"
+                  [formField]="productForm.slug"
                 >
-            </mat-form-field>
-            <mat-form-field class="w-1/2">
-              <mat-label>Slug</mat-label>
-              <input
-                matInput
-                placeholder="Slug"
-                [formField]="productForm.slug"
-              >
-            </mat-form-field>
-          </div>
-          <div class="flex gap-3">
-            <mat-form-field class="w-1/2">
-              <mat-label>Base Price</mat-label>
-              <input
-                matInput
-                type="number"
-                placeholder="Base Price"
-                [formField]="productForm.basePrice"
-              >
-              <mat-icon matSuffix>attach_money</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="w-1/2">
-              <mat-label>Brand</mat-label>
-              <mat-select
-                placeholder="Brand"
-                [formField]="productForm.brand">
-                <mat-option value="Apple">Apple</mat-option>
-                <mat-option value="Samsung">Samsung</mat-option>
-                <mat-option value="Xiaomi">Xiaomi</mat-option>
-                <mat-option value="Oppo">Oppo</mat-option>
-                <mat-option value="Lenovo">Lenovo</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="flex items-center gap-3">
-            <mat-form-field class="w-1/2">
-              <mat-label>Category</mat-label>
-              <mat-select
-                placeholder="Category"
-                [formField]="productForm.categoryId">
-                <mat-option value="phone">Smart Phone</mat-option>
-                <mat-option value="tablet">Tablet</mat-option>
-                <mat-option value="watch">Smart Watch</mat-option>
-                <mat-option value="laptop">Laptop</mat-option>
-                <mat-option value="monitor">Monitor</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <p><mat-slide-toggle>Active Product</mat-slide-toggle></p>
-          </div>
-          <mat-form-field>
-            <mat-label>Description</mat-label>
-            <textarea matInput [formField]="productForm.description"></textarea>
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </mat-tab>
-  <mat-tab label="Product Variant">
-    <mat-card appearance="outlined" class="m-6">
-      <mat-card-content>
-        <div class="flex flex-col">
-          <div class="flex gap-3">
-            <mat-form-field class="w-1/2">
-              <mat-label>Option Type</mat-label>
-              <mat-select
-                placeholder="Option Type"
-                [formField]="productForm.optionTypeId">
-                <mat-option value="color">Color</mat-option>
-                <mat-option value="size">Size</mat-option>
-                <mat-option value="storage">Storage</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field class="w-1/2">
-              <mat-label>Option Value</mat-label>
-              <mat-select
-                placeholder="Option Value"
-                [formField]="productForm.optionTypeId">
-                <mat-option value="color">Color</mat-option>
-                <mat-option value="size">Size</mat-option>
-                <mat-option value="storage">Storage</mat-option>
-              </mat-select>
+                @if (productForm.slug().touched() && productForm.slug().invalid()) {
+                  <mat-error>
+                    @for (error of productForm.slug().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <div class="flex gap-3">
+              <mat-form-field class="w-1/2">
+                <mat-label>Base Price</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  placeholder="Base Price"
+                  [formField]="productForm.basePrice"
+                >
+                <mat-icon matSuffix>attach_money</mat-icon>
+                @if (productForm.basePrice().touched() && productForm.basePrice().invalid()) {
+                  <mat-error>
+                    @for (error of productForm.basePrice().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field class="w-1/2">
+                <mat-label>Brand</mat-label>
+                <mat-select
+                  placeholder="Brand"
+                  [formField]="productForm.brand">
+                  <mat-option>--</mat-option>
+                  <mat-option value="Apple">Apple</mat-option>
+                  <mat-option value="Samsung">Samsung</mat-option>
+                  <mat-option value="Xiaomi">Xiaomi</mat-option>
+                  <mat-option value="Oppo">Oppo</mat-option>
+                  <mat-option value="Lenovo">Lenovo</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="flex items-center gap-3">
+              <mat-form-field class="w-1/2">
+                <mat-label>Category</mat-label>
+                <mat-select
+                  placeholder="Select Category"
+                  [formField]="productForm.categoryId">
+                  <mat-option [value]="null">--</mat-option>
+                  <mat-option value="phone">Smart Phone</mat-option>
+                  <mat-option value="tablet">Tablet</mat-option>
+                  <mat-option value="watch">Smart Watch</mat-option>
+                  <mat-option value="laptop">Laptop</mat-option>
+                  <mat-option value="monitor">Monitor</mat-option>
+                </mat-select>
+                @if (productForm.categoryId().touched() && productForm.categoryId().invalid()) {
+                  <mat-error>
+                    @for (error of productForm.categoryId().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+              <p>
+                <mat-slide-toggle [formField]="productForm.isActive">Active Product</mat-slide-toggle>
+              </p>
+            </div>
+            <mat-form-field>
+              <mat-label>Description</mat-label>
+              <textarea matInput [formField]="productForm.description"></textarea>
             </mat-form-field>
           </div>
-          <div class="flex gap-3">
-            <mat-form-field class="w-1/2">
-              <mat-label>Price</mat-label>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+    <mat-tab label="Product Variant">
+      <mat-accordion class="m-6" multi>
+        <mat-expansion-panel
+          [expanded]="panelOpenState()"
+          (opened)="panelOpenState.set(true)"
+          (closed)="panelOpenState.set(false)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Add New Product Variant
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="flex flex-col">
+            <div class="flex gap-3">
+              <mat-form-field class="w-1/2">
+                <mat-label>Option Type</mat-label>
+                <mat-select
+                  placeholder="Option Type"
+                  [formField]="productVariantForm.optionTypeId">
+                  <mat-option value="color">Color</mat-option>
+                  <mat-option value="size">Size</mat-option>
+                  <mat-option value="storage">Storage</mat-option>
+                </mat-select>
+                @if (productVariantForm.optionTypeId().touched() && productVariantForm.optionTypeId().invalid()) {
+                  <mat-error>
+                    @for (error of productVariantForm.optionTypeId().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field class="w-1/2">
+                <mat-label>Option Value</mat-label>
+                <mat-select
+                  placeholder="Option Value"
+                  [formField]="productVariantForm.optionValueId">
+                  <mat-option value="color">Color</mat-option>
+                  <mat-option value="size">Size</mat-option>
+                  <mat-option value="storage">Storage</mat-option>
+                </mat-select>
+                @if (productVariantForm.optionValueId().touched() && productVariantForm.optionValueId().invalid()) {
+                  <mat-error>
+                    @for (error of productVariantForm.optionValueId().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <div class="flex gap-3">
+              <mat-form-field class="w-1/2">
+                <mat-label>Price</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  placeholder="Price"
+                  [formField]="productVariantForm.price"
+                >
+                <mat-icon matSuffix>attach_money</mat-icon>
+                @if (productVariantForm.price().touched() && productVariantForm.price().invalid()) {
+                  <mat-error>
+                    @for (error of productVariantForm.price().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field class="w-1/2">
+                <mat-label>SKU</mat-label>
+                <input
+                  matInput
+                  placeholder="SKU"
+                  [formField]="productVariantForm.sku"
+                >
+                @if (productVariantForm.sku().touched() && productVariantForm.sku().invalid()) {
+                  <mat-error>
+                    @for (error of productVariantForm.sku().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <div class="flex gap-3">
+              <mat-form-field class="w-1/2">
+                <mat-label>Stock Quantity</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  placeholder="Stock Quantity"
+                  [formField]="productVariantForm.stockQuantity"
+                >
+                @if (productVariantForm.stockQuantity().touched() && productVariantForm.stockQuantity().invalid()) {
+                  <mat-error>
+                    @for (error of productVariantForm.stockQuantity().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+              <mat-form-field class="w-1/2">
+                <mat-label>Weight</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  placeholder="Weight"
+                  [formField]="productVariantForm.weight"
+                >
+                @if (productVariantForm.weight().touched() && productVariantForm.weight().invalid()) {
+                  <mat-error>
+                    @for (error of productVariantForm.weight().errors(); track error) {
+                      {{ error.message }}
+                    }
+                  </mat-error>
+                }
+              </mat-form-field>
+            </div>
+            <p class="mt-6 mb-3">
+              <mat-slide-toggle [formField]="productVariantForm.isActive">Active Product Variant</mat-slide-toggle>
+            </p>
+            <mat-form-field>
+              <mat-label>Product Image</mat-label>
               <input
                 matInput
-                type="number"
-                placeholder="Price"
-                [formField]="productForm.basePrice"
-              >
-              <mat-icon matSuffix>attach_money</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="w-1/2">
-              <mat-label>sku</mat-label>
-              <input
-                matInput
-                placeholder="sku"
-                [formField]="productForm.slug"
-              >
+                [formField]="productVariantForm.image"
+                style="visibility: hidden;">
+              <file-upload
+                (onFileUploaded)="getUploadedFileUrl($event)"
+              ></file-upload>
             </mat-form-field>
           </div>
-          <div class="flex gap-3">
-            <mat-form-field class="w-1/2">
-              <mat-label>Stock Quantity</mat-label>
-              <input
-                matInput
-                type="number"
-                placeholder="Stock Quantity"
-                [formField]="productForm.basePrice"
-              >
-            </mat-form-field>
-            <mat-form-field class="w-1/2">
-              <mat-label>Weight</mat-label>
-              <input
-                matInput
-                type="number"
-                placeholder="Weight"
-                [formField]="productForm.basePrice"
-              >
-            </mat-form-field>
-          </div>
-          <p><mat-slide-toggle>Active Product Variant</mat-slide-toggle></p>
-          <mat-form-field>
-            <mat-label>Product Image</mat-label>
-            <input
-              matInput readonly formControlName="idCardFront"
-              required style="visibility: hidden;">
-            <file-upload
-              (onFileUploaded)="getUploadedFileUrl($event)"
-            ></file-upload>
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <div class="flex justify-end space-x-3 mr-6">
-      <button mat-stroked-button>Cancel</button>
-      <button
-        mat-flat-button
-        (click)="onSubmit()"
-      >Submit</button>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="flex justify-end space-x-3 mr-3 mt-3">
+    <button mat-stroked-button>Cancel</button>
+    <button
+      mat-flat-button
+    >Submit</button>
+  </div>
+</form>

@@ -1,25 +1,15 @@
-<!-- <div>
-  <input type="file" #fileUpload (change)="onFileSelected($event)" style="display: none" />
-
-  <button mat-button mat-raised-button color="primary" type="button" (click)="fileUpload.click()">
-    Choose File
-  </button>
-
-  @if(fileName) {
-    <span>{{ fileName }}</span>
-  }
-</div> -->
-
 <input
   type="file"
+  #fileUpload
   class="file-input"
   [accept]="requiredFileType()"
-  (change)="onFileSelected($event)" #fileUpload
+  (change)="onFileSelected($event)"
 />
 
 <div class="file-upload">
   {{fileName || "No file uploaded yet."}}
   <button
+    type="button"
     mat-button mat-mini-fab
     color="primary" class="upload-btn"
     (click)="fileUpload.click()"

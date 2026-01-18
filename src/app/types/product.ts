@@ -17,10 +17,11 @@ export interface ProductVariant {
   productId: number | null;
   sku: string;
   price: string;
-  stockQuantity: number | null;
-  weight: number | null;
+  stockQuantity: number;
+  weight: number;
   isActive: boolean | null;
-  images: string[];
+  image: string;
+  optionTypeId: number;
   optionValueId: number;
 }
 export interface Product {
@@ -32,7 +33,6 @@ export interface Product {
   brand: string;
   basePrice: number;
   isActive: boolean | null;
-  optionTypeId: number;
 }
 
 export interface ProductApi {
