@@ -7,7 +7,7 @@ import customersRoutes from './features/customers/customers.routes';
 
 export const ADMIN_KEY = new InjectionToken<any>('app.routes');
 
-export const routes: Routes = [
+const appRoutes: Routes = [
   {
     path: 'admin',
     component: AdminLayout,
@@ -57,4 +57,12 @@ export const routes: Routes = [
     path: '**',
     loadComponent: () => import('./features/page-not-found/page-not-found').then(m => m.PageNotFound)
   }
+];
+
+export const routes: Routes = [
+  {
+    path: 'fr',
+    children: appRoutes
+  },
+  ...appRoutes
 ];

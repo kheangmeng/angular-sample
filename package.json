@@ -43,6 +43,7 @@
     "@angular/cli": "^21.1.0",
     "@angular/compiler-cli": "^21.1.0",
     "@angular/fire": "^0.0.0",
+    "@angular/localize": "^21.1.0",
     "@faker-js/faker": "^10.2.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.8.0",

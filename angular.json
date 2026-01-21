@@ -9,13 +9,24 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "fr": {
+            "translation": "src/locale/messages.fr.xlf",
+            "baseHref": "fr/"
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "localize":true,
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -31,6 +42,7 @@
           },
           "configurations": {
             "production": {
+              "localize": ["en-US", "fr"],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -52,9 +64,13 @@
               "outputHashing": "all"
             },
             "development": {
+              "localize": ["en-US"],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "fr": {
+              "localize": ["fr"]
             }
           },
           "defaultConfiguration": "production"
@@ -67,6 +83,9 @@
             },
             "development": {
               "buildTarget": "angular-basic:build:development"
+            },
+            "fr": {
+              "buildTarget": "angular-basic:build:fr"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +98,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [

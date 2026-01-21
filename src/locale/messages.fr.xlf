@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="8634025124141616528" datatype="html">
+        <source>Customers</source>
+        <target>Clients</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/customers/customer-list/customer-list.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6684082797303282720" datatype="html">
+        <source>All customers in the systems</source>
+        <target>Tous les clients dans les systèmes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/customers/customer-list/customer-list.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2853506402039218357" datatype="html">
+        <source>New Customers</source>
+        <target>Nouveaux clients</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/customers/customer-list/customer-list.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6707361102856436710" datatype="html">
+        <source>Products</source>
+        <target>Produits</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/products/product-list/products-list.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4110068415453242774" datatype="html">
+        <source>All products in the systems</source>
+        <target>Tous les produits des systèmes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/products/product-list/products-list.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2982087611131074586" datatype="html">
+        <source>New Product</source>
+        <target>Nouveau produit</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/products/product-list/products-list.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

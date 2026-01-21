@@ -1,11 +1,9 @@
 <mat-toolbar color="primary">
   <div class="flex items-center gap-10 text-sm">
     <img src="https://placehold.co/220x40/EEE/31343C?font=oswald&text=Product Management" />
-    <a mat-button routerLinkActive="active" href="/admin">Dashboard</a>
-    <a mat-button routerLinkActive="active" href="/admin/customers">Customers</a>
-    <a mat-button routerLinkActive="active" href="/admin/products">Products</a>
   </div>
   <span class="toolbar-spacer"></span>
+  <app-language-toggle class="mr-6"></app-language-toggle>
   <button mat-icon-button class="mt-2 mr-6">
     <mat-icon matBadge="15">notifications</mat-icon>
       <span class="cdk-visually-hidden">
@@ -28,7 +26,7 @@
       <mat-icon>settings</mat-icon>
       <span>Setting</span>
     </a>
-    <button mat-menu-item class="bg-red-500">
+    <button mat-menu-item>
       <mat-icon>logout</mat-icon>
       <span>Logout</span>
     </button>

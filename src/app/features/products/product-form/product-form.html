@@ -112,7 +112,7 @@
       </button>
       <mat-accordion class="m-6" multi>
         @for (variant of productForm.variants; track $index) {
-          <mat-expansion-panel>
+          <mat-expansion-panel [expanded]="true">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Variant ({{$index + 1}})

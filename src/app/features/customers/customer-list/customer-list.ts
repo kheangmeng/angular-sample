@@ -1,5 +1,6 @@
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {AfterViewInit, Component, ViewChild, inject} from '@angular/core';
+import { RouterLink } from '@angular/router'
 import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
@@ -13,7 +14,7 @@ import { generateFakeCustomer } from '../../../shared/faker/customer';
   selector: 'app-customer-list',
   templateUrl: './customer-list.html',
   styleUrl: './customer-list.css',
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatButton],
+  imports: [RouterLink, MatTableModule, MatPaginatorModule, MatSortModule, MatButton],
 })
 
 export class CustomerList implements AfterViewInit {
