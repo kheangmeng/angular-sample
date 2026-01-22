@@ -49,7 +49,7 @@
         mat-sort-header sortActionDescription="Sort by base price"
         class="min-w-[120px]"
       > Base Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.basePrice}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.basePrice | currency }} </td>
     </ng-container>
 
     <ng-container matColumnDef="brand">

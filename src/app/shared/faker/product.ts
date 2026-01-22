@@ -11,7 +11,7 @@ export function generateFakeProduct(rows: number) {
 function createFakeProduct() {
   return {
     id: faker.string.uuid(),
-    basePrice: faker.commerce.price({ min: 120, max: 3250, dec: 0, symbol: '$' }),
+    basePrice: faker.commerce.price({ min: 120, max: 3250, dec: 0 }),
     name: faker.commerce.productName(),
     slug: faker.helpers.slugify(faker.commerce.productName()).toLowerCase(),
     description: faker.commerce.productDescription(),

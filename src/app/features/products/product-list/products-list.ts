@@ -6,6 +6,7 @@ import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import { MatButton } from '@angular/material/button';
+import { CurrencyPipe } from '@angular/common';
 import { CustomerApiService } from "../../../api/customer/service";
 import { ProductResponse } from "../../../types";
 import { formatDate } from '../../../shared/helper';
@@ -13,7 +14,14 @@ import { generateFakeProduct } from '../../../shared/faker/product';
 
 @Component({
   selector: 'app-products-list',
-  imports: [RouterLink, MatTableModule, MatPaginatorModule, MatSortModule, MatButton],
+  imports: [
+    RouterLink,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButton,
+    CurrencyPipe,
+  ],
   exportAs: 'products-list',
   templateUrl: './products-list.html',
   styleUrl: './products-list.css'
