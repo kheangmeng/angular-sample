@@ -1,2 +1,0 @@
-var a={production:!0,apiUrl:"https://api.domain.com",firebase:{apiKey:"AIzaSyDq7dG8geDaLUO7a7o4x7JgABONam03bE4",authDomain:"about-firebase.firebaseapp.com",projectId:"about-firebase",storageBucket:"about-firebase.firebasestorage.app",messagingSenderId:"437896780302",appId:"1:437896780302:web:492424b3f1c48c3414ba5f"}};export{a};
-/**i18n:60757854ceacd67abab5eb989e73dce283aa11d93f002581dc9de1939f3ce9eb*/

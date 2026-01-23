@@ -1,2 +1,0 @@
-import{Sb as s,Tb as i,ob as o,rc as m}from"./chunk-2GOA33FY.js";var n=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-customer-edit"]],decls:3,vars:0,template:function(e,a){e&1&&(s(0,"div")(1,"h1"),m(2,"Update Customer"),i()())},encapsulation:2})};export{n as CustomerEdit};
-/**i18n:60757854ceacd67abab5eb989e73dce283aa11d93f002581dc9de1939f3ce9eb*/
