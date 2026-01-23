@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script>
+          // Simple language detection
+          var lang = navigator.language || navigator.userLanguage;
+          // Redirect to /fr/ if browser is French, otherwise default to /en/
+          if (lang.startsWith('fr')) {
+              window.location.href = './fr/';
+          } else {
+              window.location.href = './en/';
+          }
+      </script>
+  </head>
+  <body>
+      Redirecting to your language...
+  </body>
+</html>
