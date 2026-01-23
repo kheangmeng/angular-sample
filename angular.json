@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-basic": {
+    "angular-sample": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -22,7 +22,6 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "localize":true,
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js",
@@ -33,7 +32,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "404.html"
             ],
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
@@ -42,7 +42,6 @@
           },
           "configurations": {
             "production": {
-              "localize": ["en-US", "fr"],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -68,9 +67,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "fr": {
-              "localize": ["fr"]
             }
           },
           "defaultConfiguration": "production"
@@ -79,13 +75,13 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-basic:build:production"
+              "buildTarget": "angular-sample:build:production"
             },
             "development": {
-              "buildTarget": "angular-basic:build:development"
+              "buildTarget": "angular-sample:build:development"
             },
             "fr": {
-              "buildTarget": "angular-basic:build:fr"
+              "buildTarget": "angular-sample:build:fr"
             }
           },
           "defaultConfiguration": "development"
@@ -113,6 +109,9 @@
               "src/styles.css"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

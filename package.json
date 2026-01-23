@@ -1,5 +1,5 @@
 {
-  "name": "angular-basic",
+  "name": "angular-sample",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -46,6 +46,7 @@
     "@angular/localize": "^21.1.0",
     "@faker-js/faker": "^10.2.0",
     "@types/jasmine": "~5.1.0",
+    "angular-cli-ghpages": "^3.0.2",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

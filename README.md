@@ -61,3 +61,10 @@ For more information on using the Angular CLI, including detailed command refere
 ```bash
 ng extract-i18n --output-path src/locale
 ```
+
+## GH
+
+```bash
+ng build --configuration=production --base-href=/angular-sample/
+npx angular-cli-ghpages --dir=dist/angular-sample/browser
+```
