@@ -21,6 +21,8 @@ export class PushNotificationService {
   private notificationSubject = new BehaviorSubject<Notification | null>(null);
   private tokenSubject = new BehaviorSubject<string | null>(null);
   private permissionSubject = new BehaviorSubject<NotificationPermission>('default');
+  private serviceWorkerRegistration: ServiceWorkerRegistration | null = null;
+  private isServiceWorkerRegistering: boolean = false;
 
   notification$: Observable<Notification | null> = this.notificationSubject.asObservable();
   token$: Observable<string | null> = this.tokenSubject.asObservable();
@@ -124,11 +126,68 @@ export class PushNotificationService {
 
   private async registerServiceWorker(): Promise<void> {
     try {
-      const registration = await navigator.serviceWorker.register('firebase-messaging-sw.js');
-      console.log('Service Worker registered successfully:', registration);
+      // Prevent duplicate registrations
+      if (this.serviceWorkerRegistration) {
+        console.log('Service Worker already registered:', this.serviceWorkerRegistration.scope);
+        return;
+      }
+
+      // Prevent concurrent registration attempts
+      if (this.isServiceWorkerRegistering) {
+        console.log('Service Worker registration already in progress');
+        return;
+      }
+
+      this.isServiceWorkerRegistering = true;
+
+      // Check for existing registrations to avoid conflicts
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      console.log('Existing service worker registrations:', registrations.length);
+
+      for (const reg of registrations) {
+        console.log('Found existing SW registration at scope:', reg.scope);
+        // Unregister old/conflicting registrations if they're not the firebase messaging one
+        if (reg.scope.includes('firebase-messaging-push-scope')) {
+          try {
+            await reg.unregister();
+            console.log('Unregistered old firebase messaging service worker');
+          } catch (err) {
+            console.warn('Failed to unregister old service worker:', err);
+          }
+        }
+      }
+
+      // Register the service worker
+      // For GitHub Pages, the path might be under a subdirectory
+      const swPath = `${this.getBasePath()}firebase-messaging-sw.js`;
+      console.log('Registering service worker from:', swPath);
+
+      const registration = await navigator.serviceWorker.register(swPath, {
+        scope: `${this.getBasePath()}`
+      });
+
+      this.serviceWorkerRegistration = registration;
+      console.log('Service Worker registered successfully at scope:', registration.scope);
     } catch (error) {
       console.error('Service Worker registration failed:', error);
+      this.serviceWorkerRegistration = null;
+    } finally {
+      this.isServiceWorkerRegistering = false;
     }
+  }
+
+  /**
+   * Get the base path for the application
+   * Handles both root path (/) and subdirectory paths (e.g., /repo-name/)
+   */
+  private getBasePath(): string {
+    // Get the base path from the document
+    const baseElement = document.querySelector('base');
+    if (baseElement && baseElement.href) {
+      const url = new URL(baseElement.href);
+      return url.pathname.endsWith('/') ? url.pathname : url.pathname + '/';
+    }
+    return '/';
   }
 
   private async sendTokenToBackend(token: string): Promise<void> {

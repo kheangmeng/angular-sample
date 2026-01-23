@@ -2,12 +2,36 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="6570363013146073520" datatype="html">
+        <source>Dashboard</source>
+        <target>Tableau de bord</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/admin-drawer/admin-drawer.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8634025124141616528" datatype="html">
         <source>Customers</source>
         <target>Clients</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/features/customers/customer-list/customer-list.html</context>
           <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6785659997897155974" datatype="html">
+        <source>Setting</source>
+        <target>Paramètres</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/admin-drawer/admin-drawer.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1737753151350322492" datatype="html">
+        <source><x id="PH" equiv-text="title"/></source>
+        <target><x id="PH" equiv-text="title"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/admin-drawer/admin-drawer.ts</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6684082797303282720" datatype="html">

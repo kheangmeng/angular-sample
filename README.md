@@ -67,4 +67,7 @@ ng extract-i18n --output-path src/locale
 ```bash
 ng build --configuration=production --base-href=/angular-sample/
 npx angular-cli-ghpages --dir=dist/angular-sample/browser
+
+# ng build --localize --configuration=production --base-href=/angular-sample/
+# npx angular-cli-ghpages --dir=dist/project/browser --base-href=/angular-sample/
 ```
