@@ -106,9 +106,15 @@ export class PushNotificationService {
       // Register Service Worker
       await this.registerServiceWorker();
 
+      if (!this.serviceWorkerRegistration) {
+        console.error('Service Worker not registered');
+        return null;
+      }
+
       // Get FCM token
       const token = await getToken(this.messaging, {
         vapidKey: 'BNSV2DvPsrNblkgChinb112a7rGz-w5jtupXhiGKlGcs4NGp9BBzhNWXseKP-oxPoSxPwxDucnjlOaKpioDISqE',
+        serviceWorkerRegistration: this.serviceWorkerRegistration
       });
 
       this.tokenSubject.next(token);
