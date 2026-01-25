@@ -1,0 +1,54 @@
+import { Component } from '@angular/core';
+import { ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+
+@Component({
+  selector: 'polar-area-chart',
+  templateUrl: './polar-area-chart.html',
+  styleUrls: ['./polar-area-chart.css'],
+  standalone: true,
+  imports: [BaseChartDirective],
+})
+export class PolarAreaChartComponent {
+  // PolarArea
+  public polarAreaChartLabels: string[] = [
+    'Download Sales',
+    'In-Store Sales',
+    'Mail Sales',
+    // 'Telesales',
+    // 'Corporate Sales',
+  ];
+  public polarAreaChartData: ChartData<'polarArea'> = {
+    labels: this.polarAreaChartLabels,
+    datasets: [
+      {
+        data: [300, 500, 100, 40, 120],
+        label: 'Series 1',
+      },
+    ],
+  };
+  public polarAreaLegend = true;
+
+  public polarAreaChartType: ChartType = 'polarArea';
+
+  // events
+  public chartClicked({
+    event,
+    active,
+  }: {
+    event: ChartEvent;
+    active: object[];
+  }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({
+    event,
+    active,
+  }: {
+    event: ChartEvent;
+    active: object[];
+  }): void {
+    console.log(event, active);
+  }
+}
