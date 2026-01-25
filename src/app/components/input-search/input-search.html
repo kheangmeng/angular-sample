@@ -1,12 +1,25 @@
-<h3>Input Search</h3>
-<input type="text" [formControl]="searchInput" placeholder="Search..." />
+<mat-form-field class="search-input-field" appearance="outline">
+  <mat-icon matPrefix aria-hidden="false">search</mat-icon>
+  <input
+    type="text"
+    #searchInput
+    matInput
+    cdkFocusInitial
+    placeholder="Search..."
+    [value]="searchInput.value"
+    (input)="onSearch($event)"
+    (keydown.enter)="onEnter($event)"
+  />
+</mat-form-field>
+<br>
+<!-- <input type="text" [formControl]="searchInput" placeholder="Search..." /> -->
 @if (searchResult$ | async; as results) {
   @if (results.length > 0) {
-    <ul>
+    <mat-list role="list" class="h-100 overflow-y-scroll">
       @for (item of results; track item) {
-        <li>{{ item }}</li>
+        <mat-list-item role="listitem">{{ item }}</mat-list-item>
       }
-    </ul>
+    </mat-list>
   } @else {
     No result
   }

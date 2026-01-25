@@ -1,0 +1,5 @@
+.search-input-field {
+  width: 100%;
+  /* Hide the default underline */
+  --mat-form-field-underline-height: 0px;
+}
