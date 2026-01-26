@@ -3,8 +3,8 @@
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>General Information</ng-template>
       <div class="flex flex-col">
-        <div class="flex gap-3">
-          <mat-form-field appearance="outline" class="w-1/2">
+        <div class="flex flex-col md:flex-row md:space-x-6">
+          <mat-form-field appearance="outline" class="w-full md:w-1/2">
             <mat-label>First Name</mat-label>
             <input matInput placeholder="Enter first name" formControlName="firstName" required />
             @if(firstFormGroup.get('firstName')?.invalid && (firstFormGroup.get('firstName')?.dirty || firstFormGroup.get('firstName')?.touched) && firstFormGroup.get('firstName')?.hasError('required')) {
@@ -13,7 +13,7 @@
               </mat-error>
             }
           </mat-form-field>
-          <mat-form-field appearance="outline" class="w-1/2">
+          <mat-form-field appearance="outline" class="w-full md:w-1/2">
             <mat-label>Last Name</mat-label>
             <input matInput placeholder="Enter last name" formControlName="lastName" required>
             @if(firstFormGroup.get('lastName')?.invalid && (firstFormGroup.get('lastName')?.dirty || firstFormGroup.get('lastName')?.touched) && firstFormGroup.get('lastName')?.hasError('required')) {
