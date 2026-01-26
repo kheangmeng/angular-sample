@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
 import { LoginModel } from './model';
 import { AuthService } from '../../shared/auth/auth-service';
 import { ForbiddenValidatorDirective } from '../../shared/template-validator';
@@ -17,6 +18,7 @@ import { AuthApiService } from '../../api/auth/service';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
+    MatCardModule,
   ],
   templateUrl: './login.html',
   styleUrl: './login.css'

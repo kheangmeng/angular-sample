@@ -1,59 +1,62 @@
-<div class="login-wrapper">
-  <form (ngSubmit)="handleSubmit()" class="login-form" #loginForm="ngForm">
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input
-        matInput
-        [(ngModel)]="login.email"
-        name="email" type="email" placeholder="Email"
-        required
-        email
-        appForbiddenName="test"
-        #email="ngModel"
-      />
-      @if(email.invalid && (email.dirty || email.touched)) {
-        @if (email.hasError('required')) {
-          <mat-error>
-            Email is required.
-          </mat-error>
-        }
-        @if (email.hasError('email')) {
-          <mat-error>
-            Email is invalid.
-          </mat-error>
-        }
-        @if (email.hasError('forbiddenName')) {
-          <mat-error>
-            Do not include 'test' in email.
-          </mat-error>
-        }
-      }
-    </mat-form-field>
+<div class="mx-6 mt-12">
+  <h1 class="text-center text-2xl font-semibold mb-6">Login</h1>
+  <form (ngSubmit)="handleSubmit()" class="" #loginForm="ngForm">
+    <mat-card appearance="outlined" class="mx-auto w-lg">
+      <mat-card-content>
+        <div class="flex flex-col p-6 space-y-3">
+          <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            [(ngModel)]="login.email"
+            name="email" type="email" placeholder="Email"
+            required
+            email
+            appForbiddenName="test"
+            #email="ngModel"
+          />
+          @if(email.invalid && (email.dirty || email.touched) && email.hasError('required')) {
+            <mat-error>
+              Email is required.
+            </mat-error>
+          }
+          @if(email.invalid && (email.dirty || email.touched) && email.hasError('email')) {
+            <mat-error>
+              Email is invalid.
+            </mat-error>
+          }
+          @if(email.invalid && (email.dirty || email.touched) && email.hasError('forbiddenName')) {
+            <mat-error>
+              Do not include 'test' in email.
+            </mat-error>
+          }
+        </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Password</mat-label>
-      <input
-        matInput
-        [(ngModel)]="login.password"
-        name="password" type="password" placeholder="Password"
-        required minlength="8"
-        #password="ngModel"
-      />
-      @if(password.invalid && (password.dirty || password.touched)) {
-        @if (password.hasError('required')) {
-          <mat-error>
-            Password is required.
-          </mat-error>
-        }
-        @if (password.hasError('minlength')) {
-          <mat-error>
-            Password must be at least 8 characters long.
-          </mat-error>
-        }
-      }
-    </mat-form-field>
-    <button matButton="outlined" type="submit" [disabled]="!loginForm.form.valid">
-      LOGIN
-    </button>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [(ngModel)]="login.password"
+            name="password" type="password" placeholder="Password"
+            required minlength="8"
+            #password="ngModel"
+          />
+          @if(password.invalid && (password.dirty || password.touched) && password.hasError('required')) {
+            <mat-error>
+              Password is required.
+            </mat-error>
+          }
+          @if(password.invalid && (password.dirty || password.touched) && password.hasError('minlength')) {
+            <mat-error>
+              Password must be at least 8 characters long.
+            </mat-error>
+          }
+        </mat-form-field>
+        <button matButton="outlined" type="submit" [disabled]="!loginForm.form.valid">
+          LOGIN
+        </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </form>
 </div>

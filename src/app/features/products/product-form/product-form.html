@@ -5,7 +5,7 @@
         <mat-card-content>
           <div class="flex flex-col">
             <div class="flex gap-3">
-              <mat-form-field class="w-1/2">
+              <mat-form-field class="w-1/2" appearance="outline">
                 <mat-label>Product Name</mat-label>
                 <input
                   matInput
@@ -20,7 +20,7 @@
                   </mat-error>
                 }
               </mat-form-field>
-              <mat-form-field class="w-1/2">
+              <mat-form-field class="w-1/2" appearance="outline">
                 <mat-label>Slug</mat-label>
                 <input
                   matInput
@@ -37,7 +37,7 @@
               </mat-form-field>
             </div>
             <div class="flex gap-3">
-              <mat-form-field class="w-1/2">
+              <mat-form-field class="w-1/2" appearance="outline">
                 <mat-label>Base Price</mat-label>
                 <input
                   matInput
@@ -54,7 +54,7 @@
                   </mat-error>
                 }
               </mat-form-field>
-              <mat-form-field class="w-1/2">
+              <mat-form-field class="w-1/2" appearance="outline">
                 <mat-label>Brand</mat-label>
                 <mat-select
                   placeholder="Brand"
@@ -69,7 +69,7 @@
               </mat-form-field>
             </div>
             <div class="flex items-center gap-3">
-              <mat-form-field class="w-1/2">
+              <mat-form-field class="w-1/2" appearance="outline">
                 <mat-label>Category</mat-label>
                 <mat-select
                   placeholder="Select Category"
@@ -93,7 +93,7 @@
                 <mat-slide-toggle [formField]="productForm.isActive">Active Product</mat-slide-toggle>
               </p>
             </div>
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Description</mat-label>
               <textarea matInput [formField]="productForm.description"></textarea>
             </mat-form-field>
@@ -120,7 +120,7 @@
             </mat-expansion-panel-header>
             <div class="flex flex-col">
               <div class="flex gap-3">
-                <mat-form-field class="w-1/2">
+                <mat-form-field class="w-1/2" appearance="outline">
                   <mat-label>Option Type</mat-label>
                   <mat-select
                     placeholder="Option Type"
@@ -137,7 +137,7 @@
                     </mat-error>
                   }
                 </mat-form-field>
-                <mat-form-field class="w-1/2">
+                <mat-form-field class="w-1/2" appearance="outline">
                   <mat-label>Option Value</mat-label>
                   <mat-select
                     placeholder="Option Value"
@@ -156,7 +156,7 @@
                 </mat-form-field>
               </div>
               <div class="flex gap-3">
-                <mat-form-field class="w-1/2">
+                <mat-form-field class="w-1/2" appearance="outline">
                   <mat-label>Price</mat-label>
                   <input
                     matInput
@@ -173,7 +173,7 @@
                     </mat-error>
                   }
                 </mat-form-field>
-                <mat-form-field class="w-1/2">
+                <mat-form-field class="w-1/2" appearance="outline">
                   <mat-label>SKU</mat-label>
                   <input
                     matInput
@@ -190,7 +190,7 @@
                 </mat-form-field>
               </div>
               <div class="flex gap-3">
-                <mat-form-field class="w-1/2">
+                <mat-form-field class="w-1/2" appearance="outline">
                   <mat-label>Stock Quantity</mat-label>
                   <input
                     matInput
@@ -206,7 +206,7 @@
                     </mat-error>
                   }
                 </mat-form-field>
-                <mat-form-field class="w-1/2">
+                <mat-form-field class="w-1/2" appearance="outline">
                   <mat-label>Weight</mat-label>
                   <input
                     matInput
@@ -226,7 +226,7 @@
               <p class="mt-6 mb-3">
                 <mat-slide-toggle [formField]="variant.isActive">Active Product Variant</mat-slide-toggle>
               </p>
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label>Product Image</mat-label>
                 <input
                   matInput
