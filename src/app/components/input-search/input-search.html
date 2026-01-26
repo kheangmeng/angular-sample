@@ -1,4 +1,5 @@
-<mat-form-field class="search-input-field" appearance="outline">
+<div class="flex flex-col">
+<mat-form-field appearance="outline" class="px-3">
   <mat-icon matPrefix aria-hidden="false">search</mat-icon>
   <input
     type="text"
@@ -11,7 +12,6 @@
     (keydown.enter)="onEnter($event)"
   />
 </mat-form-field>
-<br>
 <!-- <input type="text" [formControl]="searchInput" placeholder="Search..." /> -->
 @if (searchResult$ | async; as results) {
   @if (results.length > 0) {
@@ -26,3 +26,4 @@
 } @else {
   Loading...
 }
+</div>
