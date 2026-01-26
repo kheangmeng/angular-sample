@@ -28,17 +28,20 @@ export class Login {
   constructor(public auth: AuthService, private authApiService: AuthApiService) {}
 
   handleSubmit():void {
-    this.authApiService.login(this.login).subscribe({
-      next: (res) => {
-        this.auth.setToken(res)
-        this.auth.setRefreshToken(res)
-        this.router.navigate(['profile'], {
-          queryParams: { 'first-login': true, username: 'hello' }
-          })
-      },
-      error: (err) => {
-        console.log(err)
-      }
-    })
+    const token = { token: crypto.randomUUID() }  as unknown as any
+    this.auth.setToken(token)
+    this.router.navigate(['admin'])
+    // this.authApiService.login(this.login).subscribe({
+    //   next: (res) => {
+    //     this.auth.setToken(res)
+    //     this.auth.setRefreshToken(res)
+    //     this.router.navigate(['profile'], {
+    //       queryParams: { 'first-login': true, username: 'hello' }
+    //       })
+    //   },
+    //   error: (err) => {
+    //     console.log(err)
+    //   }
+    // })
   }
 }

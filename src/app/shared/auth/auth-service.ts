@@ -23,6 +23,11 @@ export class AuthService {
     return tk ? `Bearer ${tk}` : ''
   }
 
+  deleteToken(): void {
+    this.token.set('')
+    localStorage.removeItem('token')
+  }
+
   isAuthenticate(): boolean {
     return !!this.token() || !!localStorage.getItem('token')
   }
