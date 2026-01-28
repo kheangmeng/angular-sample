@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, signal} from '@angular/core';
 import { applyEach, form, disabled, required, min, max, submit,  FormField, SchemaPathTree } from '@angular/forms/signals';
+import { Observable, forkJoin, map } from 'rxjs';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -14,6 +15,9 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ProductVariant, Product } from '../../../types/product';
+import { ProductApiService } from '../../../api/product/service';
+import { mapOptionTypeWithValues } from '../../../api/product/mapping';
+import type { OptionValue, OptionTypeWithValues } from '../../../types';
 
 function ItemSchema(schemaPath: SchemaPathTree<ProductVariant>) {
   disabled(schemaPath.price, ({valueOf}) => valueOf(schemaPath.id) !== null)
@@ -53,8 +57,16 @@ function ItemSchema(schemaPath: SchemaPathTree<ProductVariant>) {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductForm {
+export class ProductForm implements OnInit {
+  constructor(private api: ProductApiService) {}
   readonly panelOpenState = signal(true);
+  optionData: OptionTypeWithValues[] = [];
+  optionValues: OptionValue[][] = [];
+  ngOnInit() {
+    this.getOptionTypeWithValues().subscribe((data) => {
+      this.optionData = data;
+    });
+  }
   productModel = signal<Product>({
     id: null,
     name: '',
@@ -134,6 +146,11 @@ export class ProductForm {
       variants: [...this.productModel().variants, variant],
     });
   }
+  onOptionType(index: number) {
+    const selectedOptionTypeId = this.productModel().variants[index].optionTypeId;
+    const selectedOptionType = this.optionData.find(option => option.id === selectedOptionTypeId);
+    this.optionValues[index] = selectedOptionType ? selectedOptionType.values : [];
+  }
 
   getUploadedFileUrl(fileUrl: string, index: number) {
     console.log('Uploaded file URL:', fileUrl);
@@ -150,6 +167,16 @@ export class ProductForm {
         return variant;
       }),
     });
+  }
+  getOptionTypeWithValues(): Observable<OptionTypeWithValues[]> {
+    return forkJoin({
+      optionTypes: this.api.getOptionTypes(10),
+      optionValues: this.api.getOptionValues(100),
+    })
+    .pipe(
+      map(({ optionTypes, optionValues }) => {
+        return mapOptionTypeWithValues(optionTypes, optionValues)
+      }))
   }
 
   onSubmit(event: Event) {

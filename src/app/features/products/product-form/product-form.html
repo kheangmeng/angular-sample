@@ -124,10 +124,15 @@
                   <mat-label>Option Type</mat-label>
                   <mat-select
                     placeholder="Option Type"
-                    [formField]="variant.optionTypeId">
-                    <mat-option value="color">Color</mat-option>
-                    <mat-option value="size">Size</mat-option>
-                    <mat-option value="storage">Storage</mat-option>
+                    [formField]="variant.optionTypeId"
+                    (valueChange)="onOptionType($index)"
+                  >
+                    @for (optionType of optionData; track $index) {
+                      <mat-option [value]="optionType.id">{{ optionType.name }}</mat-option>
+                    }
+                    @if(optionData.length === 0) {
+                      <mat-option disabled>No option available</mat-option>
+                    }
                   </mat-select>
                   @if (variant.optionTypeId().touched() && variant.optionTypeId().invalid()) {
                     <mat-error>
@@ -142,9 +147,13 @@
                   <mat-select
                     placeholder="Option Value"
                     [formField]="variant.optionValueId">
-                    <mat-option value="value_1">Value 1</mat-option>
-                    <mat-option value="value_2">Value 2</mat-option>
-                    <mat-option value="value_3">Value 3</mat-option>
+                    @if(optionValues[$index] && optionValues[$index].length > 0) {
+                      @for (optionValue of optionValues[$index]; track $index) {
+                        <mat-option [value]="optionValue.id">{{ optionValue.name }}</mat-option>
+                      }
+                    } @else {
+                      <mat-option disabled>No option values available</mat-option>
+                    }
                   </mat-select>
                   @if (variant.optionValueId().touched() && variant.optionValueId().invalid()) {
                     <mat-error>

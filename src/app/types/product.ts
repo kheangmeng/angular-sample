@@ -1,4 +1,21 @@
 import type { Category } from './index'
+
+export interface OptionType {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+export interface OptionValue {
+  id: number;
+  optionTypeId: number;
+  name: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+export interface OptionTypeWithValues extends OptionType {
+  values: OptionValue[];
+}
 export interface ProductResponse {
   id: number;
   name: string;
