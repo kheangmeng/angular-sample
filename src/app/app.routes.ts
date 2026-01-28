@@ -30,28 +30,12 @@ const appRoutes: Routes = [
     ],
   },
   {
-    path: 'users',
-    loadChildren: () => import('./features/users/users-module').then(m => m.UsersModule)
-  },
-  {
     path: '',
     loadComponent: () => import('./features/home-page/home-page').then(m => m.HomePage)
   },
   {
     path: 'login',
     loadComponent: () => import('./features/login/login').then(m => m.Login)
-  },
-  {
-    path: 'profile',
-    loadComponent: () => import('./features/profile/profile').then(m => m.Profile)
-  },
-  {
-    path: 'register-signal',
-    loadComponent: () => import('./features/signal-form/register/register').then(m => m.RegisterForm)
-  },
-  {
-    path: 'product-signal',
-    loadComponent: () => import('./features/signal-form/product/product').then(m => m.ProductForm)
   },
   {
     path: '**',

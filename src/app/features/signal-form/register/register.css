@@ -1,7 +1,0 @@
-input.is-invalid {
-  border: 2px solid red;
-  background-color: white;
-}
-input.is-valid {
-  border: 2px solid green;
-}
