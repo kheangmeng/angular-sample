@@ -1,4 +1,4 @@
-import type { CustomerResponse } from '../../types'
+import type { CustomerResponse, City } from '../../types'
 
 export const mapCustomers = (res: any): CustomerResponse[] => {
   return res.customers?.map((customer: CustomerResponse) => ({
@@ -12,4 +12,15 @@ export const mapCustomers = (res: any): CustomerResponse[] => {
     createdAt: customer.createdAt,
     updatedAt: customer.updatedAt,
   }))
+}
+
+export const mapGroupCityByCountry = (cities: City[]): Map<number, City[]> => {
+  const cityMap = new Map<number, City[]>();
+
+  cities.forEach(city => {
+    const current = cityMap.get(city.countryId) || [];
+    cityMap.set(city.countryId, [...current, city]);
+  });
+
+  return cityMap;
 }

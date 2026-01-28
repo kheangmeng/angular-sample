@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { mapCustomers } from "./mapping";
+import { generateFakeCountry, generateFakeCity } from "src/app/shared/faker/customer";
 import type { Pagination, CustomerResponse } from "../../types";
 
 @Injectable({
@@ -26,4 +27,20 @@ export class CustomerApiService {
         map(mapCustomers)
       )
     }
+
+  getCountries(rows: number): Observable<any[]> {
+    return new Observable((observer) => {
+      const countries = generateFakeCountry(rows);
+      observer.next(countries);
+      observer.complete();
+    });
+  }
+
+  getCities(rows: number): Observable<any[]> {
+    return new Observable((observer) => {
+      const cities = generateFakeCity(rows);
+      observer.next(cities);
+      observer.complete();
+    });
+  }
 }
