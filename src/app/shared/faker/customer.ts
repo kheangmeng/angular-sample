@@ -31,7 +31,8 @@ function createFakeCustomer() {
   return {
     id: faker.string.uuid(),
     avatar: faker.image.avatar(),
-    birthday: faker.date.birthdate(),
+    dob: faker.date.birthdate(),
+    pob: faker.location.city(),
     idCard: faker.string.numeric(12),
     firstName,
     lastName,
@@ -39,13 +40,15 @@ function createFakeCustomer() {
     sex,
     phoneNumber: faker.phone.number(),
     address: {
-      country: faker.location.country(),
-      city: faker.location.city(),
+      country: faker.number.int({ min: 1, max: 10 }), //faker.location.country(),
+      city: faker.number.int({ min: 1, max: 10 }), // faker.location.city(),
       buildingNumber: faker.location.buildingNumber(),
       zipCode: faker.location.zipCode(),
       street: faker.location.streetAddress(),
     },
     company: faker.company.name(),
+    idCardFront: faker.image.avatarGitHub(),
+    idCardBack: faker.image.avatarGitHub(),
     createdAt: faker.date.past(),
     updatedAt: faker.date.past(),
   };

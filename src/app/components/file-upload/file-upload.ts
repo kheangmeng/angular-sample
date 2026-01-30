@@ -1,4 +1,4 @@
-import { Component, input, output, inject } from '@angular/core';
+import { Component, effect, input, output, inject } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,12 +14,18 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 export class FileUpload {
   private httpClient = inject(HttpClient);
   requiredFileType = input<string>('image/*');
+  imageUrl = input<string | undefined>('');
   onFileUploaded = output<string>();
 
   fileName = '';
   uploadProgress:number| null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    effect(() => {
+      console.log('Image URL changed:', this.imageUrl());
+      this.fileName = this.imageUrl() || '';
+    });
+  }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];

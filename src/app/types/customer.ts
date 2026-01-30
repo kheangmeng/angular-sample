@@ -1,28 +1,39 @@
 export interface CustomerResponse {
-  id: number
-  name: string
-  gender: string
-  email: string
-  phone: string
-  // address: string
-  // is_active: boolean
-  photo_url: string
-  idCard: string
-  createdAt: string
-  updatedAt: string
+  id: string,
+  avatar: string,
+  birthday: string,
+  idCard: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  sex: string,
+  dob: string | null
+  pob: string | null
+  phoneNumber: string,
+  address: CustomerAddress,
+  company: string,
+  idCardFront: string
+  idCardBack: string
+  createdAt: string,
+  updatedAt?: string,
 }
 
-export type Customer = Pick<
-  CustomerResponse,
-  'name' | 'gender' | 'email' | 'phone' | 'photo_url' | 'idCard'
->
+export interface CustomerListResponse {
+  name: string,
+  gender: string,
+  email: string,
+  phone: string,
+  idCard: string,
+  createdAt: string,
+  updatedAt?: string,
+}
 
 export interface CustomerInfo {
   firstName: string
   lastName: string
   gender: string
-  dob?: string
-  pob?: string
+  dob: string | null
+  pob: string | null
   phone: string
   email: string
 }

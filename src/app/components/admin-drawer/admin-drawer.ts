@@ -3,7 +3,7 @@ import {ChangeDetectorRef, Component, OnDestroy, inject} from '@angular/core';
 import { RouterLink } from '@angular/router'
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
-import { ArrangedMenuService } from "../../arranged-menu.service";
+import { ArrangedMenuService } from "../../shared/services/arranged-menu.service";
 
 @Component({
   selector: 'admin-drawer',

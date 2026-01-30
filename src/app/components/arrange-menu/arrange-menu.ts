@@ -12,7 +12,7 @@ import {
 } from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { menuTitles, menuItems } from "../../shared/constants";
-import { ArrangedMenuService } from "../../arranged-menu.service";
+import { ArrangedMenuService } from "../../shared/services/arranged-menu.service";
 
 @Component({
   selector: 'arrange-menu',

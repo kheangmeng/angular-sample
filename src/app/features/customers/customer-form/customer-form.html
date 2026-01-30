@@ -166,6 +166,7 @@
             matInput readonly formControlName="idCardFront"
             required style="visibility: hidden;">
           <file-upload
+            [imageUrl]="customerData()?.idCardFront"
             (onFileUploaded)="getUploadedFileUrl($event, 'idCardFront')"
           ></file-upload>
         </mat-form-field>
@@ -175,6 +176,7 @@
             matInput readonly formControlName="idCardBack"
             required style="visibility: hidden;">
           <file-upload
+            [imageUrl]="customerData()?.idCardBack"
             (onFileUploaded)="getUploadedFileUrl($event, 'idCardBack')"
           ></file-upload>
         </mat-form-field>

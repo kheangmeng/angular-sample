@@ -5,23 +5,42 @@ import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
 import { MatButton } from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatIcon } from "@angular/material/icon";
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {
+  MatDialog,
+  MatDialogActions,
+  MAT_DIALOG_DATA,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { CustomerApiService } from "../../../api/customer/service";
-import { CustomerResponse } from "../../../types";
+import { CustomerListResponse } from "../../../types";
 import { formatDate } from '../../../shared/helper';
-import { generateFakeCustomer } from '../../../shared/faker/customer';
 
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.html',
   styleUrl: './customer-list.css',
-  imports: [RouterLink, MatTableModule, MatPaginatorModule, MatSortModule, MatButton],
+  imports: [
+    RouterLink,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButton,
+    MatIcon,
+    MatTooltipModule,
+  ],
 })
 
 export class CustomerList implements AfterViewInit {
+  private _snackBar = inject(MatSnackBar);
   private _liveAnnouncer = inject(LiveAnnouncer);
   formatDate = formatDate
-  displayedColumns: string[] = ['idCard', 'name', 'gender', 'email', 'phone', 'createdAt', 'updatedAt'];
-  customers = new MatTableDataSource<CustomerResponse>([]);
+  displayedColumns: string[] = ['idCard', 'name', 'gender', 'email', 'phone', 'createdAt', 'updatedAt', 'actions'];
+  customers = new MatTableDataSource<CustomerListResponse>([]);
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -30,7 +49,6 @@ export class CustomerList implements AfterViewInit {
   }
 
   announceSortChange(sortState: Sort) {
-    // console.log('sortState:', sortState)
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
@@ -41,23 +59,13 @@ export class CustomerList implements AfterViewInit {
   constructor(private customerApiService: CustomerApiService) {}
 
   ngOnInit(): void {
-    // this.fetchCustomers()
-    const temp = generateFakeCustomer(10).map((c: any) => ({
-      name: `${c.firstName} ${c.lastName}`,
-      gender: c.sex,
-      email: c.email,
-      phone: c.phoneNumber,
-      idCard: c.idCard,
-      createdAt: c.createdAt,
-      updatedAt: c.updatedAt,
-    })) as CustomerResponse[];
-    this.customers = new MatTableDataSource<CustomerResponse>(temp)
+    this.fetchCustomers();
   }
 
   fetchCustomers(): void {
     this.customerApiService.getCustomers({page: 1, limit: 10}).subscribe({
-      next: (res: CustomerResponse[]) => {
-        this.customers = new MatTableDataSource<CustomerResponse>(res)
+      next: (res: CustomerListResponse[]) => {
+        this.customers = new MatTableDataSource<CustomerListResponse>(res)
       },
       error: (err) => {
         console.log(err)
@@ -71,30 +79,54 @@ export class CustomerList implements AfterViewInit {
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   pageEvent: PageEvent = {} as PageEvent;
-
   handlePageEvent(e: PageEvent) {
-    // console.log('paginate:', e);
     this.pageEvent = e;
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
 
-    // this.fetchCustomers()
-    const temp = generateFakeCustomer(10).map((c: any) => ({
-      name: `${c.firstName} ${c.lastName}`,
-      gender: c.sex,
-      email: c.email,
-      phone: c.phoneNumber,
-      idCard: c.idCard,
-      createdAt: c.createdAt,
-      updatedAt: c.updatedAt,
-    })) as CustomerResponse[];
-    this.customers = new MatTableDataSource<CustomerResponse>(temp)
+    this.fetchCustomers();
   }
-
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
       this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
     }
+  }
+
+  readonly dialog = inject(MatDialog);
+  openDialog(customerIdCard: string): void {
+    const dialogRef = this.dialog.open(CustomerDeleteDialog, {
+      data: customerIdCard,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if(result === 'confirm') {
+        this._snackBar.open(`Customer with ID Card: ${customerIdCard} deleted.`, 'Close');
+        this.fetchCustomers();
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'customer-delete-dialog',
+  templateUrl: 'customer-delete-dialog.html',
+  imports: [
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatButton,
+  ],
+})
+export class CustomerDeleteDialog {
+  readonly dialogRef = inject(MatDialogRef<CustomerDeleteDialog>);
+  customerIdCard = inject(MAT_DIALOG_DATA);
+
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+  onConfirm(): void {
+    this.dialogRef.close('confirm');
   }
 }

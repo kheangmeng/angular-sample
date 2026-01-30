@@ -3,12 +3,14 @@ import type { CustomerResponse, City } from '../../types'
 export const mapCustomers = (res: any): CustomerResponse[] => {
   return res.customers?.map((customer: CustomerResponse) => ({
     id: customer.id,
-    name: customer.name,
-    gender: customer.gender,
-    email: customer.email,
-    phone: customer.phone,
-    photo_url: customer.photo_url,
+    firstName: customer.firstName,
+    lastName: customer.lastName,
+    avatar: customer.avatar,
+    birthday: customer.birthday,
     idCard: customer.idCard,
+    gender: customer.sex,
+    email: customer.email,
+    phone: customer.phoneNumber,
     createdAt: customer.createdAt,
     updatedAt: customer.updatedAt,
   }))
