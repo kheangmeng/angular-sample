@@ -1,1 +1,0 @@
-import{Ub as n,Vb as a,pb as o,tc as p}from"./chunk-P7EQBKWJ.js";var s=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-page-not-found"]],decls:2,vars:0,template:function(e,d){e&1&&(n(0,"p"),p(1,"page-not-found works!"),a())},encapsulation:2})};export{s as PageNotFound};
