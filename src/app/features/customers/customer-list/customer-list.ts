@@ -39,7 +39,7 @@ export class CustomerList implements AfterViewInit {
   private _snackBar = inject(MatSnackBar);
   private _liveAnnouncer = inject(LiveAnnouncer);
   formatDate = formatDate
-  displayedColumns: string[] = ['idCard', 'name', 'gender', 'email', 'phone', 'createdAt', 'updatedAt', 'actions'];
+  displayedColumns: string[] = ['idCard', 'name', 'gender', 'email', 'phoneNumber', 'createdAt', 'updatedAt', 'actions'];
   customers = new MatTableDataSource<CustomerListResponse>([]);
 
   @ViewChild(MatSort) sort!: MatSort;
