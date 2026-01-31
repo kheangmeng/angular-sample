@@ -1,4 +1,4 @@
-import type { Category } from './index'
+import type { CategoryResponse, Category } from './index'
 
 export interface OptionType {
   id: number;
@@ -20,11 +20,13 @@ export interface ProductResponse {
   id: number;
   name: string;
   slug: string;
-  description?: string;
+  description: string;
   categoryId: number;
-  brand?: string;
+  category: CategoryResponse;
+  brand: string | null;
   basePrice: number;
-  isActive?: boolean;
+  isActive: boolean | null;
+  variants: ProductVariant[];
   createdAt: string;
   updatedAt?: string;
   deletedAt?: string;
@@ -47,7 +49,7 @@ export interface Product {
   slug: string;
   description: string;
   categoryId: number;
-  brand: string;
+  brand: string | null;
   basePrice: number;
   isActive: boolean | null;
   variants: ProductVariant[];

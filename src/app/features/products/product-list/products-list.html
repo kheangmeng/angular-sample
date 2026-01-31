@@ -4,9 +4,12 @@
       <h1 class="text-2xl" i18n>Products</h1>
       <p class="text-sm text-gray-500" i18n>All products in the systems</p>
     </div>
-    <a mat-stroked-button [routerLink]="`/admin/products/create`" i18n>New Product</a>
+    <a mat-stroked-button [routerLink]="`/admin/products/create`" i18n>
+      <mat-icon class="mr-2">add</mat-icon>
+      <span>New Product</span>
+    </a>
   </div>
-  <table mat-table [dataSource]="customers" matSort (matSortChange)="announceSortChange($event)">
+  <table mat-table [dataSource]="products" matSort (matSortChange)="announceSortChange($event)">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef
         mat-sort-header sortActionDescription="Sort by ID Card"
@@ -41,7 +44,7 @@
       <th mat-header-cell *matHeaderCellDef
         mat-sort-header sortActionDescription="Sort by category"
       > Category </th>
-      <td mat-cell *matCellDef="let element"> {{element.categoryId}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.category.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="basePrice">
@@ -73,6 +76,21 @@
       class="min-w-[120px]"
     > Updated At </th>
       <td mat-cell *matCellDef="let element"> {{ formatDate(element.updatedAt) }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef i18n class="min-w-[150px]"> Actions </th>
+      <td mat-cell *matCellDef="let element" class="space-x-3">
+        <a mat-icon-button matTooltip="View" [routerLink]="['/admin/products', element.id]" i18n>
+          <mat-icon>visibility</mat-icon>
+        </a>
+        <a mat-icon-button matTooltip="Edit" color="accent" [routerLink]="[`/admin/products/${element.id}/edit`]" i18n>
+          <mat-icon>edit</mat-icon>
+        </a>
+        <button mat-icon-button matTooltip="Delete" color="warn" i18n (click)="openDialog(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

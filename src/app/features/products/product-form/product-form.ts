@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, signal, effect, input, untracked} from '@angular/core';
 import { applyEach, form, disabled, required, min, max, submit,  FormField, SchemaPathTree } from '@angular/forms/signals';
+import { RouterLink } from '@angular/router'
 import { Observable, forkJoin, map } from 'rxjs';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -17,7 +18,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ProductVariant, Product } from '../../../types/product';
 import { ProductApiService } from '../../../api/product/service';
 import { mapOptionTypeWithValues } from '../../../api/product/mapping';
-import type { OptionValue, OptionTypeWithValues } from '../../../types';
+import type { ProductResponse, OptionValue, OptionTypeWithValues } from '../../../types';
 
 function ItemSchema(schemaPath: SchemaPathTree<ProductVariant>) {
   disabled(schemaPath.price, ({valueOf}) => valueOf(schemaPath.id) !== null)
@@ -41,6 +42,7 @@ function ItemSchema(schemaPath: SchemaPathTree<ProductVariant>) {
   standalone: true,
   providers: [provideNativeDateAdapter()],
   imports: [
+    RouterLink,
     MatButtonModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -58,13 +60,36 @@ function ItemSchema(schemaPath: SchemaPathTree<ProductVariant>) {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductForm implements OnInit {
-  constructor(private api: ProductApiService) {}
+  productData = input<ProductResponse>();
   readonly panelOpenState = signal(true);
   optionData: OptionTypeWithValues[] = [];
   optionValues: OptionValue[][] = [];
+
+  constructor(private api: ProductApiService) {
+    effect(() => {
+      const data = this.productData();
+      if (data) {
+        untracked(() => {
+          this.productModel.set({
+            id: data.id,
+            name: data.name,
+            slug: data.slug,
+            description: data.description,
+            categoryId: data.category.id,
+            brand: data.brand,
+            basePrice: data.basePrice,
+            isActive: data.isActive,
+            variants: data.variants,
+          });
+        });
+      }
+    })
+  }
+
   ngOnInit() {
     this.getOptionTypeWithValues().subscribe((data) => {
       this.optionData = data;
+      this.productModel().variants.forEach((_, index) => this.onOptionType(index));
     });
   }
   productModel = signal<Product>({

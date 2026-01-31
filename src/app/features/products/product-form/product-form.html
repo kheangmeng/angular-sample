@@ -75,11 +75,11 @@
                   placeholder="Select Category"
                   [formField]="productForm.categoryId">
                   <mat-option [value]="null">--</mat-option>
-                  <mat-option value="phone">Smart Phone</mat-option>
-                  <mat-option value="tablet">Tablet</mat-option>
-                  <mat-option value="watch">Smart Watch</mat-option>
-                  <mat-option value="laptop">Laptop</mat-option>
-                  <mat-option value="monitor">Monitor</mat-option>
+                  <mat-option [value]="1">Smart Phone</mat-option>
+                  <mat-option [value]="2">Tablet</mat-option>
+                  <mat-option [value]="3">Smart Watch</mat-option>
+                  <mat-option [value]="4">Laptop</mat-option>
+                  <mat-option [value]="5">Monitor</mat-option>
                 </mat-select>
                 @if (productForm.categoryId().touched() && productForm.categoryId().invalid()) {
                   <mat-error>
@@ -252,7 +252,7 @@
     </mat-tab>
   </mat-tab-group>
   <div class="flex justify-end space-x-3 mr-3 mt-3">
-    <button mat-stroked-button>Cancel</button>
+    <a mat-stroked-button [routerLink]="`/admin/products`">Cancel</a>
     <button
       mat-flat-button
     >Submit</button>

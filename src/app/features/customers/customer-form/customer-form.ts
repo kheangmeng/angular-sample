@@ -66,7 +66,6 @@ export class CustomerForm {
   constructor() {
     effect(() => {
       const data = this.customerData();
-      console.log('dsdaa::', data)
       if (data) {
         this.firstFormGroup.patchValue({
           firstName: data.firstName,

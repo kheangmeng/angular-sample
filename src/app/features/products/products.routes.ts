@@ -9,6 +9,10 @@ export default [
   },
   {
     path: 'products/:id',
+    loadComponent: () => import('./product-view/product-view').then(m => m.ProductView)
+  },
+  {
+    path: 'products/:id/edit',
     loadComponent: () => import('./product-edit/product-edit').then(m => m.ProductEdit)
   }
 ]
