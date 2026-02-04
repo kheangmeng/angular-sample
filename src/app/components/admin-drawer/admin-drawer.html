@@ -3,6 +3,9 @@
   <mat-drawer #drawer class="p-2 sidenav" mode="side" [opened]="!mobileQuery.matches"
     [mode]="mobileQuery.matches ? 'over' : 'side'"
   >
+    <div class=" md:hidden block flex items-center gap-10 text-sm my-2">
+      <img src="https://placehold.co/220x40/EEE/31343C?font=oswald&text=Product Management" />
+    </div>
     <div class="flex flex-col gap-1">
       @for(item of menuService.getMenu(); track item.title) {
         <a mat-button routerLinkActive="active" [routerLink]="item.url" class="flex items-center gap-2 p-2 rounded hover:bg-gray-200">
