@@ -32,22 +32,34 @@ export class FileUpload {
 
     if (file) {
       this.fileName = file.name;
-      this.onFileUploaded.emit(this.fileName);
       const formData = new FormData();
       formData.append("file", file);
 
-      const upload$ = this.http.post("/api/upload", formData, {
-          reportProgress: true,
-          observe: 'events'
+      const upload$ = this.http.post("http://localhost:3030/api/uploads/single", formData, {
+        responseType: 'json',
+        reportProgress: true,
+        observe: 'events'
       })
-      .subscribe((event) => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            console.log('Uploaded ' + event.loaded + ' out of ' + event.total + ' bytes');
-            break;
-          case HttpEventType.Response:
-            console.log('Finished uploading!');
-            break;
+      .subscribe({
+        next: (event) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              console.log('Upload progress:', event);
+              if (event.total) {
+                this.uploadProgress = Math.round(100 * (event.loaded / event.total));
+                // console.log(`Upload progress: ${this.uploadProgress}%`, event);
+              }
+              break;
+            case HttpEventType.Response:
+              console.log('Finished uploading!');
+              this.uploadProgress = null;
+              this.onFileUploaded.emit(this.fileName);
+              break;
+          }
+        },
+        error: (error) => {
+          console.error("Upload failed:", error);
+          this.uploadProgress = null;
         }
       });
     }
